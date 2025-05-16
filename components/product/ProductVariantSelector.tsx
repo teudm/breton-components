@@ -7,34 +7,12 @@ import { useSection } from "@deco/deco/hooks";
 interface Props {
   product: Product;
 }
-const colors: Record<string, string | undefined> = {
-  "White": "white",
-  "Black": "black",
-  "Gray": "gray",
-  "Blue": "#99CCFF",
-  "Green": "#aad1b5",
-  "Yellow": "#F1E8B0",
-  "DarkBlue": "#4E6E95",
-  "LightBlue": "#bedae4",
-  "DarkGreen": "#446746",
-  "LightGreen": "#aad1b5",
-  "DarkYellow": "#c6b343",
-  "LightYellow": "#F1E8B0",
-};
-const useStyles = (value: string, checked: boolean) => {
-  if (colors[value]) {
-    return clx(
-      "border border-base-300 rounded-full",
-      "w-12 h-12 block",
-      "border border-[#C9CFCF] rounded-full",
-      "ring-2 ring-offset-2",
-      checked ? "ring-primary" : "ring-transparent",
-    );
-  }
+
+const useStyles = (checked: boolean) => {
   return clx(
-    "btn btn-ghost border-[#C9CFCF] hover:bg-base-200 hover:border-[#C9CFCF] w-12 h-12",
-    "ring-2 ring-offset-2",
-    checked ? "ring-primary" : "ring-transparent border-[#C9CFCF]",
+    "btn btn-ghost w-full h-auto min-h-8",
+    "text-button uppercase",
+    checked ? "bg-black/80 hover:bg-black/75 text-white" : "",
   );
 };
 export const Ring = ({ value, checked = false, class: _class }: {
@@ -42,11 +20,10 @@ export const Ring = ({ value, checked = false, class: _class }: {
   checked?: boolean;
   class?: string;
 }) => {
-  const color = colors[value];
-  const styles = clx(useStyles(value, checked), _class);
+  const styles = clx(useStyles(checked), _class);
   return (
-    <span style={{ backgroundColor: color }} class={styles}>
-      {color ? null : value}
+    <span class={styles}>
+      {value}
     </span>
   );
 };
@@ -64,15 +41,15 @@ function VariantSelector({ product }: Props) {
   }
   return (
     <ul
-      class="flex flex-col gap-4"
+      class="flex flex-col gap-4 pb-4"
       hx-target="closest section"
       hx-swap="outerHTML"
       hx-sync="this:replace"
     >
       {filteredNames.map((name) => (
-        <li class="flex flex-col gap-2">
-          <span class="text-sm">{name}</span>
-          <ul class="flex flex-row gap-4">
+        <li class="flex flex-col gap-4">
+          <span class="text-button uppercase font-medium">{name}</span>
+          <ul class="flex flex-col md:grid md:grid-cols-2 gap-2">
             {Object.entries(possibilities[name])
               .filter(([value]) => value)
               .map(([value, link]) => {
@@ -93,7 +70,7 @@ function VariantSelector({ product }: Props) {
                       />
                       <div
                         class={clx(
-                          "col-start-1 row-start-1 col-span-1 row-span-1",
+                          "col-start-1 row-start-1 col-span-1 row-span-1 w-full",
                           "[.htmx-request_&]:opacity-0 transition-opacity",
                         )}
                       >

@@ -16,11 +16,12 @@ const onLoad = (id: string, productID: string) =>
     button.classList.remove("htmx-request");
     button.querySelector("svg")?.setAttribute(
       "fill",
-      inWishlist ? "black" : "none",
+      inWishlist ? "currentColor" : "none",
     );
+    button.dataset["inwishlist"] = `${inWishlist}`;
     const span = button.querySelector("span");
     if (span) {
-      span.innerHTML = inWishlist ? "Remove from wishlist" : "Add to wishlist";
+      span.innerHTML = inWishlist ? "Remover" : "Favoritar";
     }
   });
 const onClick = (productID: string, productGroupID: string) => {
@@ -30,7 +31,7 @@ const onClick = (productID: string, productGroupID: string) => {
     button.classList.add("htmx-request");
     window.STOREFRONT.WISHLIST.toggle(productID, productGroupID);
   } else {
-    window.alert(`Please login to add the product to your wishlist`);
+    window.alert(`Você precisa estar logado para adicionar um produto aos favoritos`);
   }
 };
 function WishlistButton({ item, variant = "full" }: Props) {
@@ -50,20 +51,19 @@ function WishlistButton({ item, variant = "full" }: Props) {
       <button
         id={id}
         data-wishlist-button
+        data-inwishlist={false}
         disabled
         {...addToWishlistEvent}
         aria-label="Add to wishlist"
         hx-on:click={useScript(onClick, productID, productGroupID)}
         class={clx(
-          "btn no-animation",
-          variant === "icon"
-            ? "btn-circle btn-ghost btn-sm"
-            : "btn-primary btn-outline gap-2 w-full",
+          "no-animation appearance-none",
+          "pl-2 pr-4 md:px-6 py-3 flex gap-4"
         )}
       >
-        <Icon id="favorite" class="[.htmx-request_&]:hidden" fill="none" />
+        <Icon id="icon-heart" class="[.htmx-request_&]:hidden" fill="none" />
         {variant === "full" && (
-          <span class="[.htmx-request_&]:hidden">Add to wishlist</span>
+          <span class="[.htmx-request_&]:hidden text-button uppercase">Favoritar</span>
         )}
         <span class="[.htmx-request_&]:inline hidden loading loading-spinner" />
       </button>

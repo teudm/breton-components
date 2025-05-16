@@ -1,85 +1,65 @@
 import { AnalyticsItem } from "apps/commerce/types.ts";
 import Image from "apps/website/components/Image.tsx";
-import { clx } from "../../sdk/clx.ts";
-import { formatPrice } from "../../sdk/format.ts";
-import Icon from "../ui/Icon.tsx";
 import QuantitySelector from "../ui/QuantitySelector.tsx";
-import { useScript } from "@deco/deco/hooks";
 export type Item = AnalyticsItem & {
   listPrice: number;
   image: string;
+  designer?: string;
+  collection?: string;
+  alternateName?: string;
 };
 export interface Props {
   item: Item;
   index: number;
-  locale: string;
-  currency: string;
+  showQtSelector?: boolean;
 }
 const QUANTITY_MAX_VALUE = 100;
-const removeItemHandler = () => {
-  const itemID = (event?.currentTarget as HTMLButtonElement | null)
-    ?.closest("fieldset")
-    ?.getAttribute("data-item-id");
-  if (typeof itemID === "string") {
-    window.STOREFRONT.CART.setQuantity(itemID, 0);
-  }
-};
-function CartItem({ item, index, locale, currency }: Props) {
-  const { image, listPrice, price = Infinity, quantity } = item;
-  const isGift = price < 0.01;
-  // deno-lint-ignore no-explicit-any
-  const name = (item as any).item_name;
+
+function CartItem({ item, index, showQtSelector }: Props) {
+  const { image, quantity } = item;
+  const name =
+    item.alternateName && item.alternateName.length > 0
+      ? item.alternateName // deno-lint-ignore no-explicit-any
+      : (item as any).item_name;
+  console.log(image)
   return (
     <fieldset
       // deno-lint-ignore no-explicit-any
       data-item-id={(item as any).item_id}
-      class="grid grid-rows-1 gap-2"
+      class="grid grid-rows-1 gap-4 bg-background-dark px-4 py-6"
       style={{ gridTemplateColumns: "auto 1fr" }}
     >
       <Image
         alt={name}
-        src={image}
-        style={{ aspectRatio: "108 / 150" }}
-        width={108}
-        height={150}
-        class="h-full object-contain"
+        src={image.replace("55-55", "132-132")}
+        style={{ aspectRatio: "112 / 132" }}
+        width={112}
+        height={132}
+        class="h-full object-contain mix-blend-multiply"
+        fit="contain"
       />
 
       {/* Info */}
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-4 justify-center">
         {/* Name and Remove button */}
-        <div class="flex justify-between items-center">
-          <legend>{name}</legend>
-          <button
-            class={clx(
-              isGift && "hidden",
-              "btn btn-ghost btn-square no-animation",
-            )}
-            hx-on:click={useScript(removeItemHandler)}
-          >
-            <Icon id="trash" size={24} />
-          </button>
-        </div>
-
-        {/* Price Block */}
-        <div class="flex items-center gap-2">
-          <span class="line-through text-sm">
-            {formatPrice(listPrice, currency, locale)}
-          </span>
-          <span class="text-sm text-secondary">
-            {isGift ? "Grátis" : formatPrice(price, currency, locale)}
-          </span>
+        <div class="flex flex-col">
+          <legend class="text-button uppercase">{name}</legend>
+          {item.designer && item.designer.length > 0 && (
+            <legend class="text-legend">Por {item.designer}</legend>
+          )}
         </div>
 
         {/* Quantity Selector */}
-        <div class={clx(isGift && "hidden")}>
-          <QuantitySelector
-            min={0}
-            max={QUANTITY_MAX_VALUE}
-            value={quantity}
-            name={`item::${index}`}
-          />
-        </div>
+        {showQtSelector && (
+          <div>
+            <QuantitySelector
+              min={0}
+              max={QUANTITY_MAX_VALUE}
+              value={quantity}
+              name={`item::${index}`}
+            />
+          </div>
+        )}
       </div>
     </fieldset>
   );

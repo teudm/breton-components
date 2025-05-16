@@ -16,7 +16,8 @@ import {
 } from "../../constants.ts";
 import { useDevice, useScript } from "@deco/deco/hooks";
 import { type LoadingFallbackProps } from "@deco/deco";
-// import Bag from "../../components/header/Bag.tsx";
+import Bag from "../../components/header/Bag.tsx";
+
 export interface Logo {
   src: ImageWidget;
   alt: string;
@@ -197,7 +198,7 @@ const Desktop = ({
   searchbar,
   loading,
 }: Props) => (
-  <div class="headerContentMainDivDesktop flex flex-col gap-4 py-[38px] group-hover:bg-background duration-700 transition-all ease-in-out">
+  <div class="headerContentMainDivDesktop flex flex-col gap-4 py-[38px] group-hover:bg-background/90 duration-700 transition-all ease-in-out">
     <div class="grid grid-cols-3 place-items-center container">
       <div class="flex gap-14 mr-auto">
         <label
@@ -285,7 +286,7 @@ const Desktop = ({
           <span class="text-button uppercase header-button-label hidden">Login</span>
           <span class="text-button uppercase header-button-label hidden">Conta</span>
         </a>
-        {/* <Bag /> */}
+        <Bag />
       </div>
     </div>
   </div>
@@ -318,7 +319,7 @@ const Mobile = ({
       }
     />
 
-    <div class="headerContentMainDivMobile flex items-center justify-between group-hover:bg-background w-screen px-4 py-[5px] gap-4">
+    <div class="headerContentMainDivMobile flex items-center justify-between group-hover:bg-background/90 w-screen px-4 py-[5px] gap-4">
       <div class="flex gap-4">
 
         <label
@@ -360,7 +361,7 @@ const Mobile = ({
       {logo && (
         <a
           href="/"
-          class="flex-grow inline-flex items-center justify-center"
+          class="flex-grow inline-flex items-center justify-center max-md:absolute max-md:left-[50%] max-md:-translate-x-1/2"
           // style={{ minHeight: NAVBAR_HEIGHT_MOBILE }}
           aria-label="Store logo"
         >
@@ -386,7 +387,7 @@ const Mobile = ({
         <a id="account" href="/login" class="flex items-center gap-4">
           <Icon id="icon-user" size={24} />
         </a>
-        {/* <Bag /> */}
+        <Bag />
       </div>
     </div>
   </>
@@ -409,7 +410,7 @@ function Header({
     <>
       <header>
         {links.length > 0 && <TopBar links={links} languages={languages} />}
-        <div id="header-content" class="w-full pointer-events-auto opacity-[.9]">
+        <div id="header-content" class="w-full pointer-events-auto">
           {device === "desktop" ? (
             <Desktop logo={logo} {...props} />
           ) : (

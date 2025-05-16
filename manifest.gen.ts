@@ -5,12 +5,12 @@
 import * as $$$$$$$$$0 from "./actions/minicart/submit.ts";
 import * as $$$$$$$$$1 from "./actions/myAction.ts";
 import * as $$$$$$$$$2 from "./actions/wishlist/submit.ts";
+import * as $$$$$$$$$$$0 from "./apps/site.ts";
 import * as $$$0 from "./loaders/availableIcons.ts";
 import * as $$$1 from "./loaders/icons.ts";
 import * as $$$2 from "./loaders/minicart.ts";
-import * as $$$3 from "./loaders/myLoader.ts";
-import * as $$$4 from "./loaders/user.ts";
-import * as $$$5 from "./loaders/wishlist.ts";
+import * as $$$3 from "./loaders/user.ts";
+import * as $$$4 from "./loaders/wishlist.ts";
 import * as $$$$$$0 from "./sections/Animation/Animation.tsx";
 import * as $$$$$$1 from "./sections/Banner/BannerZoom.tsx";
 import * as $$$$$$2 from "./sections/Banner/DoubleBanner.tsx";
@@ -88,9 +88,8 @@ const manifest = {
     "breton-components/loaders/availableIcons.ts": $$$0,
     "breton-components/loaders/icons.ts": $$$1,
     "breton-components/loaders/minicart.ts": $$$2,
-    "breton-components/loaders/myLoader.ts": $$$3,
-    "breton-components/loaders/user.ts": $$$4,
-    "breton-components/loaders/wishlist.ts": $$$5,
+    "breton-components/loaders/user.ts": $$$3,
+    "breton-components/loaders/wishlist.ts": $$$4,
   },
   "sections": {
     "breton-components/sections/Animation/Animation.tsx": $$$$$$0,
@@ -184,6 +183,9 @@ const manifest = {
     "breton-components/actions/minicart/submit.ts": $$$$$$$$$0,
     "breton-components/actions/myAction.ts": $$$$$$$$$1,
     "breton-components/actions/wishlist/submit.ts": $$$$$$$$$2,
+  },
+  "apps": {
+    "breton-components/apps/site.ts": $$$$$$$$$$$0,
   },
   "name": "breton-components",
   "baseUrl": import.meta.url,

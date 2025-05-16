@@ -7,7 +7,7 @@ function FooterNewsletter() {
   return (
     <form class="flex flex-col gap-6 sm:pl-20" onSubmit={handleForm}>
       <span class="text-caption opacity-60 uppercase">
-        RECEBA NOVIDADES BRETON
+        RECEBA AS NOVIDADES DA BRETON
       </span>
       <div class="flex flex-col gap-2">
         <label class="text-contentMini" for="footer-newsletter-email">

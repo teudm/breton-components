@@ -1,10 +1,12 @@
 import { ComponentChildren } from "preact";
 import { useId } from "../../sdk/useId.ts";
 import { useScript } from "@deco/deco/hooks";
+import { clx } from "../../sdk/clx.ts";
 interface Props {
   open?: boolean;
   children?: ComponentChildren;
   id?: string;
+  class?: string;
 }
 const script = (id: string) => {
   const handler = (e: KeyboardEvent) => {
@@ -19,11 +21,11 @@ const script = (id: string) => {
   };
   addEventListener("keydown", handler);
 };
-function Modal({ children, open, id = useId() }: Props) {
+function Modal({ children, open, id = useId(),  class: _class }: Props) {
   return (
     <>
       <input id={id} checked={open} type="checkbox" class="modal-toggle peer" />
-      <div class="modal !bg-transparent">
+      <div class={clx("modal", _class?.toString())}>
         {children}
         <label class="modal-backdrop" for={id}>Close</label>
       </div>

@@ -90,6 +90,11 @@ const script = (formId: string, name: string, popupId: string) => {
         document.getElementById(formId)?.focus();
       }
     }
+
+    if(e.key === 'Enter') {
+      const form = document.getElementById(formId) as HTMLFormElement | null;
+      form?.submit();
+    }
   });
 };
 // const Suggestions = import.meta.resolve("./Suggestions.tsx");

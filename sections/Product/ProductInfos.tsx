@@ -35,6 +35,7 @@ function TechnicalInfos({
     additionalProperty,
     "Imagem completa ficha"
   );
+  const hasSwitch = !!(dimensoesMain && dimensoesFull)
   return (
     <div class="flex flex-col md:flex-row justify-between gap-8">
       <div class="flex flex-col gap-10 md:pr-14">
@@ -62,15 +63,17 @@ function TechnicalInfos({
           )}
         </div>
       </div>
-      {dimensoesMain && dimensoesFull && (
+      {(dimensoesMain || dimensoesFull) && (
         <div class="flex flex-col gap-6 w-full">
-          <input
-            type="checkbox"
-            name="product-dimensions"
-            id="product-dimensions"
-            class="hidden peer"
-          />
-          <div class="flex flex-col">
+          {hasSwitch && (
+            <input
+              type="checkbox"
+              name="product-dimensions"
+              id="product-dimensions"
+              class="hidden peer"
+            />
+          )}
+          {dimensoesMain && (<div class="flex flex-col">
             <span class="text-button text-ui-400 uppercase">
               Dimensões principais
             </span>
@@ -80,32 +83,36 @@ function TechnicalInfos({
               class="w-full h-auto mix-blend-multiply"
               alt="Imagem das dimensões principais do produto"
             />
-          </div>
-          <div class="flex flex-col order-2 peer-checked:order-none h-0 overflow-hidden peer-checked:h-full transition-height duration-300">
-            <span class="text-button text-ui-400 uppercase">
-              Dimensões completas
-            </span>
-            <Image
-              src={dimensoesFull}
-              width={664}
-              class="w-full h-auto"
-              alt="Imagem das dimensões completas do produto"
-            />
-          </div>
-          <label
-            for="product-dimensions"
-            data-before="Ver mais"
-            data-after="Ver menos"
-            class={clx(
-              "flex items-center justify-center",
-              "text-button uppercase",
-              "px-6 py-3",
-              "mx-auto cursor-pointer",
-              "transition-all duration-300",
-              "before:content-[attr(data-before)] peer-checked:before:hidden",
-              "after:content-[attr(data-after)] after:hidden peer-checked:after:block"
-            )}
-          ></label>
+          </div>)}
+          {dimensoesFull && (
+            <div class={hasSwitch ? "flex flex-col order-2 peer-checked:order-none h-0 overflow-hidden peer-checked:h-full transition-height duration-300" : "flex flex-col"}>
+              <span class="text-button text-ui-400 uppercase">
+                Dimensões completas
+              </span>
+              <Image
+                src={dimensoesFull}
+                width={664}
+                class="w-full h-auto mix-blend-multiply"
+                alt="Imagem das dimensões completas do produto"
+              />
+            </div>
+          )}
+          {hasSwitch && (
+            <label
+              for="product-dimensions"
+              data-before="Ver mais"
+              data-after="Ver menos"
+              class={clx(
+                "flex items-center justify-center",
+                "text-button uppercase",
+                "px-6 py-3",
+                "mx-auto cursor-pointer",
+                "transition-all duration-300",
+                "before:content-[attr(data-before)] peer-checked:before:hidden",
+                "after:content-[attr(data-after)] after:hidden peer-checked:after:block"
+              )}
+            ></label>
+          )}
         </div>
       )}
     </div>

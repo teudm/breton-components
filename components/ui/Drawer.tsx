@@ -67,17 +67,18 @@ function Aside({
   drawer,
   children,
   back,
+  class: _class,
 }: {
   title: string;
   drawer: string;
   children: ComponentChildren;
   back?: boolean;
+  class?: string;
 }) {
   return (
     <div
       data-aside
-      class="bg-[#FCF9F7] grid grid-rows-[auto_1fr] h-full w-[87vw]"
-      style={{ maxWidth: "100vw" }}
+      class={clx("bg-background grid grid-rows-[auto_1fr]", "h-full w-[87vw] max-w-[400px]", _class)}
     >
       <div class="flex justify-between items-center ml-6 mt-2 mr-2">
         {back && (
@@ -93,7 +94,7 @@ function Aside({
         <label
           for={drawer}
           aria-label="X"
-          class="w-12 h-12 flex items-center justify-center"
+          class="w-12 h-12 flex items-center justify-center cursor-pointer"
         >
           <Icon id="icon-close" size={24} />
         </label>

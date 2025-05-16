@@ -24,6 +24,8 @@ export default function InstitutionalForm({
     type,
   };
 
+  if (!entityName) return null;
+
   return (
     <>
       <div class="container">

@@ -3,15 +3,19 @@ import { Picture, Source } from "apps/website/components/Picture.tsx";
 import { getPropertyValue } from "../../sdk/getProperty.ts";
 import { ImageWidget } from "apps/admin/widgets.ts";
 import { useScript } from "@deco/deco/hooks";
+import { mapProductToAnalyticsItem } from "apps/commerce/utils/productToAnalyticsItem.ts";
 import Icon from "../../components/ui/Icon.tsx";
+import AddToCartButton from "../../components/product/AddToCartButton.tsx";
+import WishlistButton from "../../components/wishlist/WishlistButton.tsx";
+import { useDevice } from "@deco/deco/hooks";
 
 export interface Props {
   /** @title Integration */
   page: ProductDetailsPage | null;
-  /** 
+  /**
    * @title Imagem padrão
-   * @description Renderizada apenas quando não há uma imagem cadastrada na VTEX 
-  */
+   * @description Renderizada apenas quando não há uma imagem cadastrada na VTEX
+   */
   defaultImageBanner: ImageWidget;
 }
 
@@ -62,7 +66,12 @@ export default function ProductMainBanner({ page, defaultImageBanner }: Props) {
     );
   }
 
+  // deno-lint-ignore react-rules-of-hooks
+  const device = useDevice();
+  const isMobile = device === "mobile";
+
   const { product } = page;
+  const item = mapProductToAnalyticsItem({ product });
 
   const additionalProperty = product?.isVariantOf?.additionalProperty;
 
@@ -71,9 +80,16 @@ export default function ProductMainBanner({ page, defaultImageBanner }: Props) {
   const bannerValue =
     getPropertyValue(additionalProperty, "Imagem Banner PDP") ||
     defaultImageBanner;
-  const bannerMobile = getPropertyValue(additionalProperty, "Imagem Banner PDP Mobile") || bannerValue;
+  const bannerMobile =
+    getPropertyValue(additionalProperty, "Imagem Banner PDP Mobile") ||
+    bannerValue;
   const designerValue = getPropertyValue(additionalProperty, "Designer");
   const nameValue = getPropertyValue(additionalProperty, "Nome");
+  const cover = getPropertyValue(additionalProperty, "Capa");
+  const hasCover = cover === "true";
+  const hasVariant = product?.isVariantOf?.hasVariant ?? [];
+
+  const hasPersonalization = hasCover || hasVariant.length > 1;
 
   return (
     <>
@@ -85,20 +101,47 @@ export default function ProductMainBanner({ page, defaultImageBanner }: Props) {
         <div class="flex justify-between items-center">
           <div class="hidden md:flex flex-col">
             <h5 class="text-h5 text-black">{nameValue || product.name}</h5>
-            {designerValue && <span class="text-caption">por {designerValue}</span>}
+            {designerValue && (
+              <span class="text-caption">por {designerValue}</span>
+            )}
           </div>
           <div class="flex max-md:gap-1 max-md:w-full">
-            <a href="#infos" class="flex justify-center gap-4 items-center px-6 py-3 uppercase text-button text-black">
+            <span class="text-black">
+              <WishlistButton
+                variant={isMobile ? "icon" : "full"}
+                item={item}
+              />
+            </span>
+            <a
+              href="#infos"
+              class="flex justify-center gap-4 items-center pl-2 pr-4 md:px-6 py-3 uppercase text-button text-black"
+            >
               <Icon id="icon-ruler" size={24} />
               <span class="max-md:hidden">ficha técnica</span>
             </a>
-            <button class="flex rounded-[2px] items-center justify-center gap-4 bg-black/80 hover:bg-black/75 transition duration-300 text-white uppercase text-button px-6 py-3 max-md:w-full">
-              <Icon id="icon-briefcase" size={24} />
-              <div>
-                <span class="max-md:hidden">solicitar </span>
-                <span>orçamento</span>
-              </div>
-            </button>
+            {hasPersonalization && isMobile ? (
+              <label
+                class="btn btn-ghost border border-black text-button uppercase flex-grow flex items-center justify-center gap-4"
+                for="sku-selector"
+              >
+                <Icon id="icon-filter" size={24} />
+                Personalize
+              </label>
+            ) : (
+              <AddToCartButton
+                product={product}
+                seller="1"
+                item={item}
+                class="cursor-pointer flex rounded-[2px] items-center justify-center gap-4 bg-black/80 hover:bg-black/75 transition duration-300 text-white uppercase text-button px-6 py-3 max-md:w-full"
+                disabled={false}
+              >
+                <Icon id="icon-briefcase" size={24} />
+                <div>
+                  <span class="max-md:hidden">solicitar </span>
+                  <span>orçamento</span>
+                </div>
+              </AddToCartButton>
+            )}
           </div>
         </div>
         <script
@@ -143,6 +186,9 @@ export default function ProductMainBanner({ page, defaultImageBanner }: Props) {
                 design por {designerValue}
               </span>
             )}
+            <div class="text-white">
+              <WishlistButton variant="full" item={item} />
+            </div>
           </div>
         </div>
       </div>

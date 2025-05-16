@@ -12,7 +12,7 @@ interface DesignerBlock {
     mobile: ImageWidget;
   };
   /** @title Top Text */
-  topText: string;
+  topText?: string;
   /** @title Architect(s) Name's */
   architects: string;
   /** @title Text to show */
@@ -30,15 +30,16 @@ export interface Props {
   page: ProductDetailsPage | null;
 }
 
-export default function ProductDesigners(props: SectionProps<ReturnType<typeof loader>> | null) {
-
+export default function ProductDesigners(
+  props: SectionProps<ReturnType<typeof loader>> | null
+) {
   if (!props) return <></>;
 
   const { designerInfos, stamp } = props;
 
   return (
     <>
-      {designerInfos.map((block) => (
+      {designerInfos.map(block => (
         <div class="grid md:grid-cols-2">
           <div class="relative">
             <Picture>
@@ -64,16 +65,15 @@ export default function ProductDesigners(props: SectionProps<ReturnType<typeof l
               />
             </Picture>
             <div class="absolute top-0 right-0 max-md:p-[18px] max-w-[151px]">
-              <img
-                src={stamp}
-                alt="Product Designers Stamp"
-              />
+              <img src={stamp} alt="Product Designers Stamp" />
             </div>
           </div>
           <div class="pl-6 max-md:pt-8 md:pt-[168px] max-md:pl-6 md:pr-[13.5vw]">
-            <p class="text-caption uppercase mb-2 font-normal">
-              {block.topText}
-            </p>
+            {block.topText && (
+              <p class="text-caption uppercase mb-2 font-normal">
+                {block.topText}
+              </p>
+            )}
             <p class="text-h2 max-md:mb-4 md:mb-6">
               Design por {block.architects}
             </p>
@@ -97,17 +97,20 @@ export default function ProductDesigners(props: SectionProps<ReturnType<typeof l
 
 /**
  * Carrega informações do designer com base na página e bloco de designers fornecidos.
- * 
+ *
  * @param {Props} params - Parâmetros da função.
  * @param {PageType} params.page - Objeto da página contendo informações do produto.
  * @param {DesignerBlockType[]} params.designerBlock - Lista de blocos com informações de designers.
  * @param {StampType} params.stamp - Objeto adicional passado junto aos dados carregados.
  * @param {Request} _req - Objeto da requisição (não utilizado).
- * 
- * @returns {{ designerInfos: DesignerBlockType[], stamp: StampType } | null} 
+ *
+ * @returns {{ designerInfos: DesignerBlockType[], stamp: StampType } | null}
  * Retorna as informações filtradas dos designers e o stamp, ou null se os dados forem inválidos.
  */
-export const loader = ({ page, designerBlock, stamp }: Props, _req: Request) => {
+export const loader = (
+  { page, designerBlock, stamp }: Props,
+  _req: Request
+) => {
   if (!page || !designerBlock) {
     return null;
   }
@@ -116,10 +119,14 @@ export const loader = ({ page, designerBlock, stamp }: Props, _req: Request) => 
 
   const designer =
     product.isVariantOf?.additionalProperty.find(
-      (property) => property.name === "Designer"
+      property => property.name === "Designer"
     )?.value ?? "";
 
-  const designerInfos = designerBlock.filter((block) =>
+  if (!designer || designer === "") {
+    return { designerInfos: [], stamp };
+  }
+
+  const designerInfos = designerBlock.filter(block =>
     block.architects.toLowerCase().includes(designer.toLowerCase())
   );
 

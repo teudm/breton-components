@@ -13,13 +13,13 @@ export interface Props {
 function TopBar({ links = [], languages = [] }: Props) {
   return (
     <div id="top-bar" className="bg-primary max-md:hidden pointer-events-auto">
-      <div className="flex justify-between container py-1">
+      <div className="flex justify-between container py-1 flex-row-reverse">
         <div className="flex gap-4">
           {languages.map((language) => (
             <a
               key={language.label}
               href={language.link}
-              class="text-white text-[10px] font-normal leading-none tracking-wide"
+              class="text-white text-[10px] font-normal leading-none tracking-wide flex items-center"
             >
               {language.label}
             </a>
