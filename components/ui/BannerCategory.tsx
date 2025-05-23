@@ -63,7 +63,7 @@ function BannerSearch(props: SectionProps<ReturnType<typeof loader>>) {
 
       <div class="container flex flex-col items-center justify-center sm:items-start col-start-1 col-span-1 row-start-1 row-span-1 w-full">
         <h1 class="text-center w-full">
-          <span class="uppercase sm:text-5xl font-normal text-[40px] text-white">
+          <span class="md:text-h1 text-h1Mobile uppercase text-white text-center">
             {title}
           </span>
         </h1>

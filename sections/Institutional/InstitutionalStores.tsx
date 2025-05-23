@@ -1,4 +1,4 @@
-import { HTMLWidget, ImageWidget } from "apps/admin/widgets.ts";
+import { RichText, ImageWidget } from "apps/admin/widgets.ts";
 import { useDevice, useScript } from "@deco/deco/hooks";
 import Slider from "../../components/ui/Slider.tsx";
 import { useId } from "../../sdk/useId.ts";
@@ -28,7 +28,7 @@ interface Loja {
   /** @title Endereço */
   address: string;
   /** @title Horário de funcionamento */
-  opening: HTMLWidget;
+  opening: RichText;
   /** @title Telefone de contato */
   phone: string;
   /** @title Instagram da loja */
@@ -171,6 +171,13 @@ const handleInput = () => {
       noStoresFound.classList.add("hidden");
     }
   });
+  
+  filterInput?.addEventListener("keydown", (e: KeyboardEvent) => {
+    const button = document.getElementById("search-store-button");
+    if(e.key === 'Enter' && button) {
+      button.click();
+    }
+  });
 };
 
 const handleSearch = () => {
@@ -219,6 +226,7 @@ function NossasLojas({ lojas }: Props) {
             />
             <button
               hx-on:click={useScript(handleSearch)}
+              id="search-store-button"
               class="btn bg-black/80 hover:bg-black/75 outline-none text-button uppercase text-white max-md:w-full"
             >
               Buscar

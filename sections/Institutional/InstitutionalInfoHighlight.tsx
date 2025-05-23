@@ -1,10 +1,10 @@
-import type { HTMLWidget, ImageWidget } from "apps/admin/widgets.ts";
+import type { RichText, ImageWidget } from "apps/admin/widgets.ts";
 import { useScript, useDevice } from "@deco/deco/hooks";
 
 export interface Props {
   contentInfo: {
     title?: string;
-    description?: HTMLWidget;
+    description?: RichText;
   };
   contentHightlight: {
     info: {
@@ -187,19 +187,19 @@ export default function InstitutionalInfoHighlight({
 
         {isMobile
           ? backgroundMobile && (
-              <img
-                src={backgroundMobile}
-                alt="Mobile Background"
-                class="ml-auto"
-              />
-            )
+            <img
+              src={backgroundMobile}
+              alt="Mobile Background"
+              class="ml-auto"
+            />
+          )
           : backgroundDesktop && (
-              <img
-                src={backgroundDesktop}
-                class="w-full"
-                alt="Desktop Background"
-              />
-            )}
+            <img
+              src={backgroundDesktop}
+              class="w-full"
+              alt="Desktop Background"
+            />
+          )}
 
         {logoBottom && <img src={logoBottom} alt="Logo Bottom" />}
       </div>

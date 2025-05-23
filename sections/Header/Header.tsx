@@ -35,8 +35,8 @@ export interface SectionProps {
    * @description Links para redirecionar o site para outro idioma
    */
   languages?: {
-    label: string,
-    link: string,
+    label: string;
+    link: string;
   }[];
   /**
    * @title Topbar Links
@@ -107,13 +107,15 @@ const handleHeader = () => {
         "--header-height",
         `${headerContentHeight}px`
       );
-      headerContentMainDivDesk?.classList.add("bg-background");
-      headerContentMainDivMob?.classList.add("bg-background");
+      headerContentMainDivDesk?.classList.add("bg-background/40");
+      headerContentMainDivMob?.classList.add("bg-background/40");
+      headerContentMainDivDesk?.classList.add("backdrop-blur-md");
+      headerContentMainDivMob?.classList.add("backdrop-blur-md");
       headerContentMainDivDesk?.setAttribute("style", "padding-block: 16px;");
       document.body.style.setProperty("--header-height", "56px");
     } else {
       header.className =
-        "group z-40 w-full absolute bg-header-gradient hover:bg-none h-[120px] pointer-events-none sm:h-[184px] text-white hover:text-black";
+        "group z-40 w-full absolute bg-header-gradient/40 hover:bg-none h-[120px] pointer-events-none sm:h-[184px] text-white hover:text-black";
       mainLogo?.classList.remove("hidden");
       altLogo?.classList.add("hidden");
       topBar?.classList.remove("hidden");
@@ -121,8 +123,10 @@ const handleHeader = () => {
         "--header-height",
         `${headerContentHeight + topBarHeight}px`
       );
-      headerContentMainDivDesk?.classList.remove("bg-background");
-      headerContentMainDivMob?.classList.remove("bg-background");
+      headerContentMainDivDesk?.classList.remove("bg-background/40");
+      headerContentMainDivMob?.classList.remove("bg-background/40");
+      headerContentMainDivDesk?.classList.remove("backdrop-blur-md");
+      headerContentMainDivMob?.classList.remove("backdrop-blur-md");
       headerContentMainDivDesk?.removeAttribute("style");
       document.body.style.setProperty(
         "--header-height",
@@ -165,16 +169,14 @@ const handleHeader = () => {
       const account = nodes.item(1);
       const user = sdk.getUser();
       if (user?.email) {
-        container.href = "/my-account";
         login?.classList.add("hidden");
         account?.classList.remove("hidden");
       } else {
-        container.href = "/my-account/login";
         login?.classList.remove("hidden");
         account?.classList.add("hidden");
       }
     });
-  }
+  };
 
   focusSearchbar();
   isUserLoged();
@@ -198,98 +200,114 @@ const Desktop = ({
   searchbar,
   loading,
 }: Props) => (
-  <div class="headerContentMainDivDesktop flex flex-col gap-4 py-[38px] group-hover:bg-background/90 duration-700 transition-all ease-in-out">
-    <div class="grid grid-cols-3 place-items-center container">
-      <div class="flex gap-14 mr-auto">
-        <label
-          for={NAVBAR_POPUP_ID}
-          class="flex items-center gap-4 cursor-pointer"
-          aria-label="menu icon button"
+  <>
+    <div class="headerContentMainDivDesktop flex flex-col gap-4 py-[38px] group-hover:bg-background/40 group-hover:backdrop-blur-md duration-700 transition-all ease-in-out">
+      <div class="grid grid-cols-3 place-items-center container">
+        <div class="flex gap-14 mr-auto">
+          <label
+            for={NAVBAR_POPUP_ID}
+            class="flex items-center gap-4 cursor-pointer"
+            aria-label="menu icon button"
+          >
+            <Icon
+              id="menu"
+              className="peer-checked:opacity-0 peer-checked:absolute transition-opacity duration-300"
+            />
+            <Icon
+              id="icon-close"
+              className="opacity-0 absolute peer-checked:static peer-checked:opacity-100 transition-opacity duration-300"
+            />
+            <span class="text-button uppercase">Menu</span>
+          </label>
+          {headerLinks &&
+            headerLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                class="text-button uppercase header-link"
+              >
+                {link.label}
+              </a>
+            ))}
+        </div>
+        <div class="">
+          <a href="/" aria-label="Store logo">
+            <Image
+              src={logo.src}
+              alt={logo.alt}
+              width={logo.width || 100}
+              height={logo.height || 23}
+              id="header-logo"
+              class="group-hover:hidden"
+            />
+            <Image
+              src={altLogo.src}
+              alt={altLogo.alt}
+              width={altLogo.width || 100}
+              height={altLogo.height || 23}
+              id="header-altLogo"
+              className="hidden group-hover:flex"
+            />
+          </a>
+        </div>
+        <div
+          class="flex gap-14 items-center justify-center ml-auto"
+          id="header-buttons"
         >
-          <Modal id={NAVBAR_POPUP_ID}>
-            <div
-              class="absolute top-0 w-full bg-background h-10 min-h-[480px] border-t border-t-[#E7DED8] cursor-auto"
-              style={{ marginTop: "var(--header-height)" }}
-            >
-              <NavBar.Desktop menu={navBar.menu} />
-            </div>
-          </Modal>
-          <Icon
-            id="menu"
-            className="peer-checked:opacity-0 peer-checked:absolute transition-opacity duration-300"
-          />
-          <Icon
-            id="icon-close"
-            className="opacity-0 absolute peer-checked:static peer-checked:opacity-100 transition-opacity duration-300"
-          />
-          <span class="text-button uppercase">Menu</span>
-        </label>
-        {headerLinks &&
-          headerLinks.map((link) => (
-            <a key={link.label} href={link.href} class="text-button uppercase header-link">
-              {link.label}
-            </a>
-          ))}
-      </div>
-      <div class="">
-        <a href="/" aria-label="Store logo">
-          <Image
-            src={logo.src}
-            alt={logo.alt}
-            width={logo.width || 100}
-            height={logo.height || 23}
-            id="header-logo"
-            class="group-hover:hidden"
-          />
-          <Image
-            src={altLogo.src}
-            alt={altLogo.alt}
-            width={altLogo.width || 100}
-            height={altLogo.height || 23}
-            id="header-altLogo"
-            className="hidden group-hover:flex"
-          />
-        </a>
-      </div>
-      <div class="flex gap-14 items-center justify-center ml-auto" id="header-buttons">
-        <label
-          for={SEARCHBAR_POPUP_ID}
-          class="flex items-center gap-4 cursor-pointer ml-auto"
-          aria-label="search icon button"
-        >
-          <Modal id={SEARCHBAR_POPUP_ID}>
-            <div
-              class="absolute top-0 w-full bg-background min-h-[560px] border-t border-t-[#E7DED8] cursor-auto"
-              style={{ marginTop: "var(--header-height)" }}
-            >
-              {loading === "lazy" ? (
-                <div class="flex justify-center items-center">
-                  <span class="loading loading-spinner" />
-                </div>
-              ) : (
-                <Searchbar {...searchbar} />
-              )}
-            </div>
-          </Modal>
-          <Icon
-            id="search"
-            className="peer-checked:opacity-0 peer-checked:absolute transition-opacity duration-300"
-          />
-          <Icon
-            id="icon-close"
-            className="opacity-0 absolute peer-checked:static peer-checked:opacity-100 transition-opacity duration-300"
-          />
-          <span class="text-button uppercase header-button-label">Pesquise</span>
-        </label>
-        <a id="account" href="/login" class="flex items-center gap-4">
-          <Icon id="icon-user" size={24} />
-          <span class="text-button uppercase header-button-label hidden">Login</span>
-          <span class="text-button uppercase header-button-label hidden">Conta</span>
-        </a>
-        <Bag />
+          <label
+            for={SEARCHBAR_POPUP_ID}
+            class="flex items-center gap-4 cursor-pointer ml-auto"
+            aria-label="search icon button"
+          >
+            <Icon
+              id="search"
+              className="peer-checked:opacity-0 peer-checked:absolute transition-opacity duration-300"
+            />
+            <Icon
+              id="icon-close"
+              className="opacity-0 absolute peer-checked:static peer-checked:opacity-100 transition-opacity duration-300"
+            />
+            <span class="text-button uppercase header-button-label">
+              Pesquise
+            </span>
+          </label>
+          <a id="account" href="/my-account" class="flex items-center gap-4">
+            <Icon id="icon-user" size={24} />
+            <span class="text-button uppercase header-button-label hidden">
+              Login
+            </span>
+            <span class="text-button uppercase header-button-label hidden">
+              Conta
+            </span>
+          </a>
+          <Bag />
+        </div>
       </div>
     </div>
-  </div>
+
+    <Modal id={NAVBAR_POPUP_ID}>
+      <div
+        class="absolute top-0 w-full bg-background h-10 min-h-[480px] border-t border-t-[#E7DED8] cursor-auto"
+        style={{ marginTop: "var(--header-height)" }}
+      >
+        <NavBar.Desktop menu={navBar.menu} />
+      </div>
+    </Modal>
+    <Modal id={SEARCHBAR_POPUP_ID}>
+      <div
+        class="absolute top-0 w-full bg-background min-h-[560px] border-t border-t-[#E7DED8] cursor-auto"
+        style={{ marginTop: "var(--header-height)" }}
+      >
+        {loading === "lazy" ? (
+          <div class="flex justify-center items-center">
+            <span class="loading loading-spinner" />
+          </div>
+        ) : (
+          <Searchbar {...searchbar} />
+        )}
+      </div>
+    </Modal>
+  </>
 );
 const Mobile = ({
   logo,
@@ -319,9 +337,8 @@ const Mobile = ({
       }
     />
 
-    <div class="headerContentMainDivMobile flex items-center justify-between group-hover:bg-background/90 w-screen px-4 py-[5px] gap-4">
+    <div class="headerContentMainDivMobile flex items-center justify-between w-screen px-4 py-[5px] gap-4">
       <div class="flex gap-4">
-
         <label
           for={SIDEMENU_DRAWER_ID}
           class="btn btn-square btn-sm btn-ghost"
@@ -384,7 +401,7 @@ const Mobile = ({
         </a>
       )}
       <div class="flex gap-4">
-        <a id="account" href="/login" class="flex items-center gap-4">
+        <a id="account" href="/my-account" class="flex items-center gap-4">
           <Icon id="icon-user" size={24} />
         </a>
         <Bag />

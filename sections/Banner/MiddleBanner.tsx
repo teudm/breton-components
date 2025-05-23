@@ -1,11 +1,11 @@
-import { type HTMLWidget, type ImageWidget } from "apps/admin/widgets.ts";
+import { type RichText, type ImageWidget } from "apps/admin/widgets.ts";
 import { Picture, Source } from "apps/website/components/Picture.tsx";
 import Section from "../../components/ui/Section.tsx";
 import { clx } from "../../sdk/clx.ts";
 
 export interface Props {
   title: string;
-  description?: HTMLWidget;
+  description?: RichText;
 
   images: {
     mobile: {

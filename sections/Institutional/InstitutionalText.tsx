@@ -1,17 +1,17 @@
-import { type HTMLWidget } from "apps/admin/widgets.ts";
+import { type RichText } from "apps/admin/widgets.ts";
 import Section from "../../components/ui/Section.tsx";
 
 export interface InstitutionalTextProps {
-  title?: HTMLWidget;
-  subTitle?: HTMLWidget;
-  description?: HTMLWidget;
+  title?: RichText;
+  subTitle?: RichText;
+  description?: RichText;
 }
 
 function InstitutionalText({
   title,
   description,
   subTitle,
-}: InstitutionalTextProps) {  
+}: InstitutionalTextProps) {
 
   return (
     <Section.Tabbed>

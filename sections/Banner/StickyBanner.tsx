@@ -1,12 +1,12 @@
-import { type HTMLWidget, type ImageWidget } from "apps/admin/widgets.ts";
+import { type RichText, type ImageWidget } from "apps/admin/widgets.ts";
 import { Picture, Source } from "apps/website/components/Picture.tsx";
 import Section from "../../components/ui/Section.tsx";
 import { clx } from "../../sdk/clx.ts";
 
 export interface StickyBannerProps {
   content?: {
-    title?: HTMLWidget;
-    description?: HTMLWidget;
+    title?: RichText;
+    description?: RichText;
     titleImage?: {
       image: ImageWidget;
       width?: number;
@@ -68,11 +68,10 @@ function StickyBanner({
             <img
               src={background.desktop.image}
               alt={title}
-              class={`w-full object-cover ${
-                background.hoverZoom
+              class={`w-full object-cover ${background.hoverZoom
                   ? "md:group-hover:scale-110 duration-3000 ease-in-out"
                   : ""
-              }`}
+                }`}
             />
           </Picture>
 

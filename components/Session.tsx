@@ -26,9 +26,10 @@ export interface SDK {
     getQuantity: (itemId: string) => number | undefined;
     setQuantity: (itemId: string, quantity: number) => boolean;
     addToCart: (item: Item, platformProps: unknown) => boolean;
+    cleanCart: () => void;
     subscribe: (
       cb: (sdk: SDK["CART"]) => void,
-      opts?: boolean | AddEventListenerOptions,
+      opts?: boolean | AddEventListenerOptions
     ) => void;
     dispatch: (form: HTMLFormElement) => void;
   };
@@ -36,7 +37,7 @@ export interface SDK {
     getUser: () => Person | null;
     subscribe: (
       cb: (sdk: SDK["USER"]) => void,
-      opts?: boolean | AddEventListenerOptions,
+      opts?: boolean | AddEventListenerOptions
     ) => void;
     dispatch: (person: Person) => void;
   };
@@ -45,10 +46,14 @@ export interface SDK {
     inWishlist: (productID: string) => boolean;
     subscribe: (
       cb: (sdk: SDK["WISHLIST"]) => void,
-      opts?: boolean | AddEventListenerOptions,
+      opts?: boolean | AddEventListenerOptions
     ) => void;
     dispatch: (form: HTMLFormElement) => void;
   };
+  USEFUL: {
+    validateForm: (form: HTMLFormElement) => boolean;
+    sendData: (body: string, entity: string) => Promise<number|undefined>;
+  }
 }
 const sdk = () => {
   const target = new EventTarget();
@@ -59,22 +64,23 @@ const sdk = () => {
       JSON.parse(
         decodeURIComponent(
           form.querySelector<HTMLInputElement>('input[name="storefront-cart"]')
-            ?.value || "[]",
-        ),
+            ?.value || "[]"
+        )
       );
     const sdk: SDK["CART"] = {
       getCart,
-      getQuantity: (itemId) =>
+      getQuantity: itemId =>
         form?.querySelector<HTMLInputElement>(
-          `[data-item-id="${itemId}"] input[type="number"]`,
+          `[data-item-id="${itemId}"] input[type="number"]`
         )?.valueAsNumber,
       setQuantity: (itemId, quantity) => {
         const input = form?.querySelector<HTMLInputElement>(
-          `[data-item-id="${itemId}"] input[type="number"]`,
+          `[data-item-id="${itemId}"] input[type="number"]`
         );
-        const item = getCart()?.items.find((item) =>
-          // deno-lint-ignore no-explicit-any
-          (item as any).item_id === itemId
+        const item = getCart()?.items.find(
+          item =>
+            // deno-lint-ignore no-explicit-any
+            (item as any).item_id === itemId
         );
         if (!input || !item) {
           return false;
@@ -82,9 +88,10 @@ const sdk = () => {
         input.value = quantity.toString();
         if (input.validity.valid) {
           window.DECO.events.dispatch({
-            name: item.quantity < input.valueAsNumber
-              ? "add_to_cart"
-              : "remove_from_cart",
+            name:
+              item.quantity < input.valueAsNumber
+                ? "add_to_cart"
+                : "remove_from_cart",
             params: { items: [{ ...item, quantity }] },
           });
           input.dispatchEvent(new Event("change", { bubbles: true }));
@@ -93,10 +100,10 @@ const sdk = () => {
       },
       addToCart: (item, platformProps) => {
         const input = form?.querySelector<HTMLInputElement>(
-          'input[name="add-to-cart"]',
+          'input[name="add-to-cart"]'
         );
         const button = form?.querySelector<HTMLButtonElement>(
-          `button[name="action"][value="add-to-cart"]`,
+          `button[name="action"][value="add-to-cart"]`
         );
         if (!input || !button) {
           return false;
@@ -108,6 +115,13 @@ const sdk = () => {
         input.value = encodeURIComponent(JSON.stringify(platformProps));
         button.click();
         return true;
+      },
+      cleanCart: () => {
+        const { items } = getCart();
+        items.forEach(item => {
+          // deno-lint-ignore no-explicit-any
+          sdk.setQuantity((item as any).item_id, 0);
+        });
       },
       subscribe: (cb, opts) => {
         target.addEventListener("cart", () => cb(sdk), opts);
@@ -137,18 +151,19 @@ const sdk = () => {
         sendEvent(e.currentTarget as HTMLElement | null);
       }
       // Only available on newer safari versions
-      const handleView = typeof IntersectionObserver !== "undefined"
-        ? new IntersectionObserver((items) => {
-          for (const item of items) {
-            const { isIntersecting, target } = item;
-            if (!isIntersecting) {
-              continue;
-            }
-            handleView!.unobserve(target);
-            sendEvent(target);
-          }
-        })
-        : null;
+      const handleView =
+        typeof IntersectionObserver !== "undefined"
+          ? new IntersectionObserver(items => {
+              for (const item of items) {
+                const { isIntersecting, target } = item;
+                if (!isIntersecting) {
+                  continue;
+                }
+                handleView!.unobserve(target);
+                sendEvent(target);
+              }
+            })
+          : null;
       const listener = (node: Element) => {
         const maybeTrigger = node.getAttribute("data-event-trigger");
         const on = maybeTrigger === "click" ? "click" : "view";
@@ -168,11 +183,10 @@ const sdk = () => {
 
       document.body.querySelectorAll("[data-event]").forEach(listener);
 
-      document.body.addEventListener(
-        "htmx:load",
-        (e) =>
-          (e as unknown as { detail: { elt: HTMLElement } })
-            .detail.elt.querySelectorAll("[data-event]").forEach(listener),
+      document.body.addEventListener("htmx:load", e =>
+        (e as unknown as { detail: { elt: HTMLElement } }).detail.elt
+          .querySelectorAll("[data-event]")
+          .forEach(listener)
       );
     });
   };
@@ -200,10 +214,12 @@ const sdk = () => {
           console.error("Missing wishlist Provider");
           return false;
         }
-        form.querySelector<HTMLInputElement>('input[name="product-id"]')!
-          .value = productID;
-        form.querySelector<HTMLInputElement>('input[name="product-group-id"]')!
-          .value = productGroupID;
+        form.querySelector<HTMLInputElement>(
+          'input[name="product-id"]'
+        )!.value = productID;
+        form.querySelector<HTMLInputElement>(
+          'input[name="product-group-id"]'
+        )!.value = productGroupID;
         form.querySelector<HTMLButtonElement>("button")?.click();
         return true;
       },
@@ -215,7 +231,7 @@ const sdk = () => {
       dispatch: (f: HTMLFormElement) => {
         form = f;
         const script = f.querySelector<HTMLScriptElement>(
-          'script[type="application/json"]',
+          'script[type="application/json"]'
         );
         const wishlist: Wishlist | null = script
           ? JSON.parse(script.innerText)
@@ -226,17 +242,67 @@ const sdk = () => {
     };
     return sdk;
   };
+  const createUsefulSDK = () => {
+    const sdk: SDK["USEFUL"] = {
+      validateForm: (form: HTMLFormElement) => {
+        const regexPhone = /^\(\d{2}\) \d{4,5}-\d{4}$/;
+        const regexEmail =
+          /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const inputs = form.querySelectorAll("div[data-type]");
+        for (const child of Array.from(inputs)) {
+          const type = (child as HTMLElement).getAttribute("data-type");
+          const input = (child as HTMLElement).querySelector("input");
+          const value = input?.value;
+          if (
+            (type === "tel" && !value?.match(regexPhone)) ||
+            (type === "email" && !value?.match(regexEmail))
+          ) {
+            input?.setAttribute("data-invalid", "true");
+            input?.classList.add("invalid");
+            form.scrollIntoView();
+            return false;
+          } else {
+            input?.setAttribute("data-invalid", "false");
+            input?.classList.remove("invalid");
+          }
+        }
+
+        return true;
+      },
+      sendData: async (body: string, entity: string) => {
+        let status;
+
+        try {
+          const response = await fetch(`/api/document?entityName=${entity}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body,
+          });
+
+          status = response.status;
+        } catch (error) {
+          console.error("Error creating document", error);
+        }
+
+        return status;
+      },
+    };
+    return sdk;
+  };
   createAnalyticsSDK();
   window.STOREFRONT = {
     CART: createCartSDK(),
     USER: createUserSDK(),
     WISHLIST: createWishlistSDK(),
+    USEFUL: createUsefulSDK(),
   };
 };
 export const action = async (
   _props: unknown,
   _req: Request,
-  ctx: AppContext,
+  ctx: AppContext
 ) => {
   const [minicart, wishlist, user] = await Promise.all([
     ctx.invoke("site/loaders/minicart.ts"),
@@ -261,9 +327,12 @@ interface Props {
   user?: Person | null;
   mode?: "eager" | "lazy";
 }
-export default function Session(
-  { minicart, wishlist, user, mode = "lazy" }: Props,
-) {
+export default function Session({
+  minicart,
+  wishlist,
+  user,
+  mode = "lazy",
+}: Props) {
   if (mode === "lazy") {
     return (
       <>
@@ -284,13 +353,9 @@ export default function Session(
         id={MINICART_DRAWER_ID}
         class="drawer-end z-50"
         aside={
-          <Drawer.Aside title="My Bag" drawer={MINICART_DRAWER_ID}>
+          <Drawer.Aside class="max-md:w-full max-md:max-w-none" title="Carrinho" drawer={MINICART_DRAWER_ID}>
             <div
               class="h-full flex flex-col bg-base-100 items-center justify-center overflow-auto"
-              style={{
-                minWidth: "calc(min(100vw, 425px))",
-                maxWidth: "425px",
-              }}
             >
               <CartProvider cart={minicart!} />
             </div>

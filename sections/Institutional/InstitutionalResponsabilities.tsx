@@ -80,7 +80,7 @@ function InstitutionalAllResponsabilities({
           style={{ minWidth: isMobile ? "calc(100% - 32px)" : "auto" }}
         >
           <div class="min-h-[64px] flex items-center">
-            <object type="image/svg+xml" data={image} width={width} height={height} />
+            <img class="w-auto h-auto object-cover" src={image} width={width} height={height} />
           </div>
           <div class="flex flex-col md:gap-4">
             <p class="text-black text-[11px] font-medium font-['F37 Neuro'] uppercase leading-normal tracking-[2.64px]">

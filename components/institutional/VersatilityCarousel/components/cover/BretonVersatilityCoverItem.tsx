@@ -16,7 +16,7 @@ export default function BretonVersatilityCoverItem({
   const isMobile = device === "mobile";
   return (
     <div
-      class="relative block overflow-hidden w-full my-0 h-full"
+      class="relative block overflow-hidden w-full my-0 max-md:h-full"
     >
       <Picture preload={lcp}>
         <Source

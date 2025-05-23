@@ -38,7 +38,7 @@ export default function BretonVersatilityCarousel({
                 type="button"
                 class="selectCustom flex"
               >
-                <span>FILTRE POR LOCAL</span>
+                <span>FILTRE POR CATEGORIA</span>
                 <span class="selectCustomAfter" />
               </button>
               <form

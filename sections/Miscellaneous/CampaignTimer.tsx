@@ -1,4 +1,4 @@
-import type { HTMLWidget } from "apps/admin/widgets.ts";
+import type { RichText } from "apps/admin/widgets.ts";
 import Section from "../../components/ui/Section.tsx";
 import { useId } from "../../sdk/useId.ts";
 import { useScript } from "@deco/deco/hooks";
@@ -7,7 +7,7 @@ export interface Props {
    * @title Text
    * @default Time left for a campaign to end with a link
    */
-  text?: HTMLWidget;
+  text?: RichText;
   /**
    * @title Expires at date
    * @format datetime

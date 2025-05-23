@@ -21,7 +21,6 @@ function CartItem({ item, index, showQtSelector }: Props) {
     item.alternateName && item.alternateName.length > 0
       ? item.alternateName // deno-lint-ignore no-explicit-any
       : (item as any).item_name;
-  console.log(image)
   return (
     <fieldset
       // deno-lint-ignore no-explicit-any

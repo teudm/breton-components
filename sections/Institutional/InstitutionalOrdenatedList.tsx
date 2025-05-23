@@ -14,6 +14,9 @@ export interface InstitutionalOrdenatedListProps {
   /** @title Background Color */
   backgroundColor: Color;
 
+  /** @title Text Color */
+  textColor: string;
+
   /** @title List */
   list: string[];
 }
@@ -53,6 +56,7 @@ export default function InstitutionalOrdenatedList({
                 {item}
               </p>
             </div>
+        
           ))}
         </div>
       </div>

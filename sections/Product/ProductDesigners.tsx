@@ -1,5 +1,5 @@
 import { ProductDetailsPage } from "apps/commerce/types.ts";
-import { ImageWidget, HTMLWidget } from "apps/admin/widgets.ts";
+import { ImageWidget, RichText } from "apps/admin/widgets.ts";
 import { Picture, Source } from "apps/website/components/Picture.tsx";
 import Icon from "../../components/ui/Icon.tsx";
 import { type SectionProps } from "@deco/deco";
@@ -16,7 +16,7 @@ interface DesignerBlock {
   /** @title Architect(s) Name's */
   architects: string;
   /** @title Text to show */
-  text: HTMLWidget;
+  text: RichText;
 }
 
 export interface Props {
@@ -82,7 +82,7 @@ export default function ProductDesigners(
               dangerouslySetInnerHTML={{ __html: block.text }}
             />
             <a
-              href={`/breton?filter.brand=breton&filter.designer=${block.architects}&page=1`}
+              href={`/designer/${block.architects.toLowerCase().replaceAll(" ", "-")}`}
               class="flex bg-white/20 rounded-[1px] backdrop-blur-[10px] w-fit rounded-sm outline outline-1 outline-offset-[-1px] outline-black py-[10px] px-6 gap-4 items-center justify-center hover:bg-white/30 transition duration-300"
             >
               <span class="text-button">VER PRODUTOS</span>

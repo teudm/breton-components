@@ -1,12 +1,12 @@
 import {
-  type HTMLWidget,
+  type RichText,
   type ImageWidget,
   type Color,
 } from "apps/admin/widgets.ts";
 import Section from "../../components/ui/Section.tsx";
 
 export interface InstitutionalFooterNavigatorProps {
-  text?: HTMLWidget;
+  text?: RichText;
   background?: Color;
   navigationList?: NavigationListProps[];
 }

@@ -23,7 +23,7 @@ function TimeLineCarousel({
     >
 
       <div id="main-banner" class="col-span-full row-span-full flex">
-        <Slider class="carousel carousel-center w-full ease-in-out duration-300">
+        <Slider class="carousel carousel-center max-w-[1920px] mx-auto ease-in-out duration-300">
           {images.map((image, index) => (
             <Slider.Item index={index} class="carousel-item w-full">
               <TLCarouselItem image={image} lcp={index === 0 && preload} />

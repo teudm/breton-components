@@ -21,7 +21,7 @@ export default function BretonVersatilityNormalSlide({
           >
             <div class="block w-full my-0 h-full">
               <img
-                className="h-full object-cover max-md:w-full"
+                className="max-md:h-full object-cover w-full"
                 loading="lazy"
                 src={image}
                 alt={alt}
@@ -32,7 +32,6 @@ export default function BretonVersatilityNormalSlide({
           </Slider.Item>
         );
       })}
-      ;
     </>
   );
 }

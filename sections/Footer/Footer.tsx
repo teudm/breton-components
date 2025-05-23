@@ -1,4 +1,4 @@
-import { HTMLWidget, type ImageWidget } from "apps/admin/widgets.ts";
+import { RichText, type ImageWidget } from "apps/admin/widgets.ts";
 import Image from "apps/website/components/Image.tsx";
 import Section from "../../components/ui/Section.tsx";
 import Icon from "../../components/ui/Icon.tsx";
@@ -6,6 +6,7 @@ import FooterNewsletter from "../../islands/FooterNewsletter.tsx";
 import FooterLanguageSelector, {
   type FooterLanguageProps,
 } from "./FooterLanguageSelector.tsx";
+import Newsletter from "../Newsletter/Newsletter.tsx";
 
 /** @titleBy title */
 interface Item {
@@ -28,7 +29,7 @@ interface Social {
 
 interface Props {
   links?: Link[];
-  contactInfo?: HTMLWidget;
+  contactInfo?: RichText;
   social?: Social[];
   logo?: ImageWidget;
   languages?: FooterLanguageProps;
@@ -71,7 +72,7 @@ function Footer({
                 </div>
               </div>
             ))}
-            <FooterNewsletter />
+            <Newsletter status={undefined} />
           </div>
 
           <div class="hidden sm:flex justify-between items-center">

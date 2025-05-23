@@ -1,4 +1,4 @@
-import { HTMLWidget } from "apps/admin/widgets.ts";
+import { RichText } from "apps/admin/widgets.ts";
 import { clx } from "../../sdk/clx.ts";
 import { useId } from "../../sdk/useId.ts";
 import { useScript } from "@deco/deco/hooks";
@@ -25,7 +25,7 @@ const script = (id: string) => {
 };
 interface Props {
   title?: string;
-  text?: HTMLWidget;
+  text?: RichText;
   policy?: {
     text?: string;
     link?: string;
@@ -43,7 +43,7 @@ function CookieConsent(
   {
     title = "Cookies",
     text =
-      "Guardamos estatísticas de visitas para melhorar sua experiência de navegação.",
+    "Guardamos estatísticas de visitas para melhorar sua experiência de navegação.",
     policy = {
       text: "Saiba mais sobre sobre política de privacidade",
       link: "/politica-de-privacidade",

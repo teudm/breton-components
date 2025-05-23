@@ -22,6 +22,7 @@ export default function BretonVersatilityProductSlide({
     <>
       <Slider.Item
         index={index}
+        id={`carousel-item-${id}`}
         class="carousel-item w-full relative items-center"
       >
         <div class="bg-base-100 w-full flex flex-col gap-[56px] md:py-[92px] max-md:pl-[56px] md:px-[120px] items-center">

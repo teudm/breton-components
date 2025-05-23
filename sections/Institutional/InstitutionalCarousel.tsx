@@ -115,8 +115,8 @@ export default function InstitutionalCarousel({
       class={clx(
         "grid",
         "grid-rows-[1fr_32px_1fr_64px]",
-        "grid-cols-[32px_1fr_32px] min-h-[560px]",
-        "sm:grid-cols-[112px_1fr_112px] sm:min-h-min",
+        "grid-cols-[0px_1fr_0px] min-h-[560px]",
+        "sm:grid-cols-[0px_1fr_0px] sm:min-h-min",
         "w-full group"
       )}
     >

@@ -1,4 +1,4 @@
-import { HTMLWidget } from "apps/admin/widgets.ts";
+import { RichText } from "apps/admin/widgets.ts";
 import Section, {
   type Props as SectionHeaderProps,
 } from "../../components/ui/Section.tsx";
@@ -6,12 +6,12 @@ import Section, {
 export interface Question {
   question: string;
 
-  answer: HTMLWidget;
+  answer: RichText;
 }
 
 export interface Contact {
   title?: string;
-  description?: HTMLWidget;
+  description?: RichText;
   link?: {
     text: string;
     href: string;

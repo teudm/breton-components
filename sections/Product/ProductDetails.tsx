@@ -88,7 +88,7 @@ function DetailsContent({ product }: { product: Product }) {
         </AddToCartButton>
         <span class="text-legend text-ui-500">
           Para mais opções de personalização,{" "}
-          <a target="_blank" class="underline" href="#">
+          <a target="_blank" class="underline" href="https://wa.me/551140559707">
             fale com um de nossos consultores Breton.
           </a>
         </span>
@@ -170,7 +170,7 @@ export default function ProductDetails({ page }: Props) {
             </AddToCartButton>
             <span class="text-legend text-ui-500">
               Para mais opções de personalização,{" "}
-              <a target="_blank" class="underline" href="#">
+              <a target="_blank" class="underline" href="https://wa.me/551140559707">
                 fale com um de nossos consultores Breton.
               </a>
             </span>

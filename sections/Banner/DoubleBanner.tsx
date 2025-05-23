@@ -1,10 +1,10 @@
-import { type HTMLWidget, type ImageWidget } from "apps/admin/widgets.ts";
+import { type RichText, type ImageWidget } from "apps/admin/widgets.ts";
 import Section from "../../components/ui/Section.tsx";
 import MiddleBanner from "./MiddleBanner.tsx";
 
 interface BannerProps {
   title: string;
-  description?: HTMLWidget;
+  description?: RichText;
 
   images: {
     mobile: {

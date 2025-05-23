@@ -11,11 +11,21 @@ export const useVariantPossibilities = (
   selected: ProductLeaf,
 ): Possibilities => {
   const possibilities: Possibilities = {};
+  selected.additionalProperty?.push({
+    "@type": "PropertyValue",
+    name: "Variação do produto",
+    value: selected.name
+  })
   const selectedSpecs = new Set(selected.additionalProperty?.map(hash));
 
   for (const variant of variants) {
     const { url, additionalProperty = [], productID } = variant;
     const isSelected = productID === selected.productID;
+    additionalProperty.push({
+      "@type": "PropertyValue",
+      name: "Variação do produto",
+      value: variant.name
+    })
     const specs = additionalProperty.filter(({ name }) => !omit.has(name!));
 
     for (let it = 0; it < specs.length; it++) {

@@ -31,7 +31,7 @@ export function TLCarouselItem({
       aria-label={textBoxContent?.title}
       class="relative block overflow-hidden w-full flex justify-center"
     >
-      <Picture preload={lcp}>
+      <Picture preload={lcp} class="w-full">
         <Source
           media="(max-width: 767px)"
           fetchPriority={lcp ? "high" : "auto"}

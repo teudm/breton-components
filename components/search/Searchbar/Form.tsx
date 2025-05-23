@@ -77,10 +77,8 @@ const script = (formId: string, name: string, popupId: string) => {
         .getElementById("search-submit")
         ?.classList.remove("translate-x-[58px]");
     });
-  }
 
-  // Keyboard event listeners
-  addEventListener("keydown", (e: KeyboardEvent) => {
+  input.addEventListener("keydown", (e: KeyboardEvent) => {
     const isK = e.key === "k" || e.key === "K" || e.keyCode === 75;
     // Open Searchbar on meta+k
     if (e.metaKey === true && isK) {
@@ -96,6 +94,7 @@ const script = (formId: string, name: string, popupId: string) => {
       form?.submit();
     }
   });
+  }
 };
 // const Suggestions = import.meta.resolve("./Suggestions.tsx");
 export default function Searchbar({

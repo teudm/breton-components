@@ -14,6 +14,7 @@ export interface BretonVersatilityCarouselProps {
   limitPerPage?: number;
 }
 
+/** @title {{{cover.title}}} */
 export interface PlaceProps {
   /** @title Tipo de Local */
   type: string;
@@ -100,6 +101,10 @@ export interface ProductSlideProps {
   
   /** @title Produtos do Slide */
   products: ProductsProps | CollectionProps;
+  
+  /** @title Ativação de Slides de produtos */
+  /** @default True */  
+  active: boolean;
 }
 
 export interface ProductsProps {

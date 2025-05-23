@@ -1,10 +1,11 @@
 import { AppContext } from "../../apps/site.ts";
-import Icon from "../../components/ui/Icon.tsx";
-import Section from "../../components/ui/Section.tsx";
-import { clx } from "../../sdk/clx.ts";
-import { usePlatform } from "../../sdk/usePlatform.tsx";
 import { useComponent } from "../Component.tsx";
 import { type SectionProps } from "@deco/deco";
+
+interface InputProps {
+  label?: string;
+  placeholder?: string;
+}
 interface NoticeProps {
   title?: string;
   description?: string;
@@ -13,106 +14,136 @@ export interface Props {
   empty?: NoticeProps;
   success?: NoticeProps;
   failed?: NoticeProps;
-  /** @description Signup label */
+  /** @description Texto que aparecerá no botão de envio */
   label?: string;
-  /** @description Input placeholder */
-  placeholder?: string;
+  /** @description Informações que aparecerão nos inputs de email e nome */
+  inputs?: {
+    email?: InputProps;
+    name?: InputProps;
+  };
   /** @hide true */
   status?: "success" | "failed";
 }
 export async function action(props: Props, req: Request, ctx: AppContext) {
-  const platform = usePlatform();
   const form = await req.formData();
-  const email = `${form.get("email") ?? ""}`;
-  if (platform === "vtex") {
-    // deno-lint-ignore no-explicit-any
-    await (ctx as any).invoke("vtex/actions/newsletter/subscribe.ts", {
+  const email = `${form.get("footer-newsletter-email") ?? ""}`;
+  const name = `${form.get("footer-newsletter-nome") ?? ""}`;
+  // deno-lint-ignore no-explicit-any
+  const response = await (ctx as any).invoke(
+    "site/actions/newsletter/subscribe.ts",
+    {
       email,
-    });
-    return { ...props, status: "success" };
-  }
+      name,
+    }
+  );
+  if (response.ok) return { ...props, status: "success" };
   return { ...props, status: "failed" };
 }
 export function loader(props: Props) {
   return { ...props, status: undefined };
 }
-function Notice({ title, description }: {
+function Notice({
+  title,
+  description,
+}: {
   title?: string;
   description?: string;
 }) {
   return (
-    <div class="flex flex-col justify-center items-center sm:items-start gap-4">
-      <span class="text-3xl font-semibold text-center sm:text-start">
-        {title}
-      </span>
-      <span class="text-sm font-normal text-base-400 text-center sm:text-start">
-        {description}
-      </span>
+    <div class="flex-col gap-6 flex">
+      <div class="flex flex-col gap-6">
+        <p class="text-[22px] font-semibold font-['F37 Neuro'] uppercase leading-loose tracking-widest">
+          {title}
+        </p>
+        <p class="text-sm font-light font-['F37 Neuro'] leading-normal tracking-wide">
+          {description}
+        </p>
+      </div>
     </div>
   );
 }
 function Newsletter({
   empty = {
-    title: "Get top deals, latest trends, and more.",
-    description:
-      "Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here.",
+    title: "RECEBA AS NOVIDADES DA BRETON",
   },
   success = {
-    title: "Thank you for subscribing!",
-    description:
-      "You’re now signed up to receive the latest news, trends, and exclusive promotions directly to your inbox. Stay tuned!",
+    title: "OBRIGADO!",
+    description: "Agradecemos seu cadastro!",
   },
   failed = {
-    title: "Oops. Something went wrong!",
+    title: "DESCULPE!",
     description:
-      "Something went wrong. Please try again. If the problem persists, please contact us.",
+      "Houve um erro no envio dos seus dados. Por favor, tente novamente mais tarde. Caso o erro persista, favor, entre em contato com a loja.",
   },
-  label = "Sign up",
-  placeholder = "Enter your email address",
+  label = "Enviar",
+  inputs = {
+    email: {
+      label: "Seu email: ",
+      placeholder: "seunome@email.com",
+    },
+    name: {
+      label: "Seu nome: ",
+      placeholder: "Digite aqui",
+    },
+  },
   status,
 }: SectionProps<typeof loader, typeof action>) {
   if (status === "success" || status === "failed") {
     return (
-      <Section.Container class="bg-base-200">
-        <div class="p-14 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-10">
-          <Icon
-            size={80}
-            class={clx(status === "success" ? "text-success" : "text-error")}
-            id={status === "success" ? "check-circle" : "error"}
-          />
-          <Notice {...status === "success" ? success : failed} />
-        </div>
-      </Section.Container>
+      <section class="">
+        <Notice {...(status === "success" ? success : failed)} />
+      </section>
     );
   }
   return (
-    <Section.Container class="bg-base-200">
-      <div class="p-14 grid grid-flow-row sm:grid-cols-2 gap-10 sm:gap-20 place-items-center">
-        <Notice {...empty} />
-
-        <form
-          hx-target="closest section"
-          hx-swap="outerHTML"
-          hx-post={useComponent(import.meta.url)}
-          class="flex flex-col sm:flex-row gap-4 w-full"
-        >
+    <section class="md:pl-20">
+      <form
+        hx-target="closest section"
+        hx-swap="innerHTML"
+        hx-post={useComponent(import.meta.url)}
+        class="flex flex-col gap-6"
+      >
+        <span class="text-caption opacity-60 uppercase">{empty.title}</span>
+        <div class="flex flex-col gap-2">
+          <label class="text-contentMini" for="footer-newsletter-email">
+            {inputs?.email?.label}
+          </label>
           <input
-            name="email"
-            class="input input-bordered flex-grow"
-            type="text"
-            placeholder={placeholder}
+            class="w-full bg-primary-darker border-0 border-b pl-[15px] text-content text-white border-b-white outline-none h-[46px]"
+            type="email"
+            id="footer-newsletter-email"
+            name="footer-newsletter-email"
+            required
+            placeholder={inputs?.email?.placeholder}
           />
-
-          <button class="btn btn-primary" type="submit">
-            <span class="[.htmx-request_&]:hidden inline">
-              {label}
-            </span>
-            <span class="[.htmx-request_&]:inline hidden loading loading-spinner" />
-          </button>
-        </form>
-      </div>
-    </Section.Container>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-contentMini" for="footer-newsletter-nome">
+            {inputs?.name?.label}
+          </label>
+          <div class="flex flex-col sm:flex-row gap-6 sm:gap-4">
+            <input
+              class="w-full bg-primary-darker border-0 border-b pl-[15px] text-content text-white border-b-white outline-none h-[46px]"
+              type="text"
+              id="footer-newsletter-nome"
+              name="footer-newsletter-nome"
+              required
+              placeholder={inputs?.name?.placeholder}
+            />
+            <button
+              class="btn btn-accent"
+              type="submit"
+              id="footer-newsletter-submit"
+            >
+              <span class="[.htmx-request_&]:hidden inline">
+                {label}
+              </span>
+              <span class="[.htmx-request_&]:inline hidden loading loading-spinner" />
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
   );
 }
-export const LoadingFallback = () => <Section.Placeholder height="412px" />;
 export default Newsletter;

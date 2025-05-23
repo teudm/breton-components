@@ -46,12 +46,15 @@ export function getProducts(
     searchVariable: string
   ) {
     try {
-      const response = await fetch(`/api/${apiName}?${searchKey}=${searchVariable}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `/api/${apiName}?${searchKey}=${searchVariable}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       return response.json();
     } catch (error) {
       console.error(`Error getting ${searchKey}`, error);
@@ -61,7 +64,11 @@ export function getProducts(
   triggerOnVisibility(id, async () => {
     if ("collectionId" in products) {
       const { collectionId } = products;
-      const response = await getProductsRequest("collection", "collectionId", collectionId);
+      const response = await getProductsRequest(
+        "collection",
+        "collectionId",
+        collectionId
+      );
       mountProducts(response, id);
       return response;
     }
@@ -69,7 +76,11 @@ export function getProducts(
     if ("productIds" in products) {
       const { productIds } = products;
       const stringOfproductIds = productIds.join(",");
-      const response = await getProductsRequest("productsInfos", "products", stringOfproductIds);
+      const response = await getProductsRequest(
+        "productsInfos",
+        "products",
+        stringOfproductIds
+      );
       mountProducts(response, id);
       return response;
     }
@@ -86,7 +97,9 @@ export function getProducts(
       const inWishlist = sdk.inWishlist(productID);
       button.disabled = false;
       button.classList.remove("htmx-request");
-      button.querySelector("svg")?.setAttribute("fill", inWishlist ? "black" : "none");
+      button
+        .querySelector("svg")
+        ?.setAttribute("fill", inWishlist ? "black" : "none");
     });
   }
 
@@ -123,6 +136,7 @@ export function getProducts(
     ],
     id: string
   ) {
+    eraseMocks(products.length);
     const productCard = document.getElementById(`productCard-${id}`);
     if (!productCard) return;
 
@@ -145,12 +159,31 @@ export function getProducts(
         productAuthor.textContent = "By " + Designer.join(", ");
       }
 
-      const wishListBtn: HTMLButtonElement | null = child.querySelector(".wishListButton");
+      const wishListBtn: HTMLButtonElement | null =
+        child.querySelector(".wishListButton");
       if (wishListBtn) {
         wishListBtn.setAttribute("data-product-id", productId);
         wishListBtn.addEventListener("click", () => handleClick(productId));
-        wishListBtn.addEventListener("load", () => onLoad(wishListBtn, productId));
+        wishListBtn.addEventListener("load", () =>
+          onLoad(wishListBtn, productId)
+        );
       }
     });
+  }
+
+  /**
+   * Remove elementos mock do container de produtos que excedem a quantidade real de produtos.
+   *
+   * @param {number} qtdOfProducts - Quantidade real de produtos a serem exibidos.
+   */
+  function eraseMocks(qtdOfProducts: number) {
+    const productCard = document.getElementById(`productCard-${id}`);
+    if (!productCard) return;
+
+    const children = Array.from(productCard.children);
+
+    for (let i = qtdOfProducts; i < children.length; i++) {
+      children[i].remove();
+    }
   }
 }

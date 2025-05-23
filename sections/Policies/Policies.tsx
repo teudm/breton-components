@@ -1,4 +1,4 @@
-import type { HTMLWidget } from "apps/admin/widgets.ts";
+import type { RichText } from "apps/admin/widgets.ts";
 import { clx } from "../../sdk/clx.ts";
 
 export interface PoliciesProps {
@@ -8,8 +8,8 @@ export interface PoliciesProps {
   /** @title Subtítulo */
   subtitle: string;
 
-  /** @title Conteúdo em HTML */  
-  text: HTMLWidget;
+  /** @title Conteúdo em HTML */
+  text: RichText;
 }
 
 export default function Policies({ policies }: { policies: PoliciesProps[] }) {

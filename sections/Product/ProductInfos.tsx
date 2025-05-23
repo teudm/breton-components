@@ -8,6 +8,11 @@ import { clx } from "../../sdk/clx.ts";
 export interface Props {
   /** @title Integration */
   page: ProductDetailsPage | null;
+  /**
+   * @title Cuidados genéricos
+   * @description Arquivo que aparecerá na aba "cuidados" caso o produto não tenha esta especificação cadastrada
+   */
+  defaultCares?: string;
 }
 
 function TechnicalInfos({
@@ -35,7 +40,7 @@ function TechnicalInfos({
     additionalProperty,
     "Imagem completa ficha"
   );
-  const hasSwitch = !!(dimensoesMain && dimensoesFull)
+  const hasSwitch = !!(dimensoesMain && dimensoesFull);
   return (
     <div class="flex flex-col md:flex-row justify-between gap-8">
       <div class="flex flex-col gap-10 md:pr-14">
@@ -73,19 +78,27 @@ function TechnicalInfos({
               class="hidden peer"
             />
           )}
-          {dimensoesMain && (<div class="flex flex-col">
-            <span class="text-button text-ui-400 uppercase">
-              Dimensões principais
-            </span>
-            <Image
-              src={dimensoesMain}
-              width={664}
-              class="w-full h-auto mix-blend-multiply"
-              alt="Imagem das dimensões principais do produto"
-            />
-          </div>)}
+          {dimensoesMain && (
+            <div class="flex flex-col">
+              <span class="text-button text-ui-400 uppercase">
+                Dimensões principais
+              </span>
+              <Image
+                src={dimensoesMain}
+                width={664}
+                class="w-full h-auto mix-blend-multiply"
+                alt="Imagem das dimensões principais do produto"
+              />
+            </div>
+          )}
           {dimensoesFull && (
-            <div class={hasSwitch ? "flex flex-col order-2 peer-checked:order-none h-0 overflow-hidden peer-checked:h-full transition-height duration-300" : "flex flex-col"}>
+            <div
+              class={
+                hasSwitch
+                  ? "flex flex-col order-2 peer-checked:order-none h-0 overflow-hidden peer-checked:h-full transition-height duration-300"
+                  : "flex flex-col"
+              }
+            >
               <span class="text-button text-ui-400 uppercase">
                 Dimensões completas
               </span>
@@ -148,7 +161,7 @@ function DownloadInfos({ downloads }: { downloads: string }) {
   );
 }
 
-export default function ProductInfos({ page }: Props) {
+export default function ProductInfos({ page, defaultCares = "//assets.decocache.com/breton/61a91ed1-76a0-4e6f-9227-833a762a2224/Guia-de-Cuidados-BRETON.pdf" }: Props) {
   /**
    * Rendered when a not found is returned by any of the loaders run on this page
    */
@@ -162,7 +175,8 @@ export default function ProductInfos({ page }: Props) {
 
   if (!additionalProperty) return null;
 
-  const cares = getPropertyValue(additionalProperty, "Cuidados");
+  const cares =
+    getPropertyValue(additionalProperty, "Cuidados") || `Guia de Cuidados Breton: ${defaultCares}`;
   const downloads = getPropertyValue(additionalProperty, "Downloads");
   const hasCares = cares && cares.trim().length > 0;
   const hasDownloads = downloads && downloads.trim().length > 0;
@@ -196,9 +210,7 @@ export default function ProductInfos({ page }: Props) {
         )}
         {hasCares && (
           <Tabs.Tab title="Cuidados">
-            <div class="flex justify-center text-contentMini text-ui-700">
-              <span class="whitespace-break-spaces">{cares}</span>
-            </div>
+            <DownloadInfos downloads={cares} />
           </Tabs.Tab>
         )}
       </Tabs>
