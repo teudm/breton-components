@@ -888,6 +888,14 @@ html {
   --tw-text-opacity: 1;
   color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
 }
+.\!carousel {
+  display: inline-flex !important;
+  overflow-x: scroll !important;
+  scroll-snap-type: x mandatory !important;
+  scroll-behavior: smooth !important;
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
 .carousel {
   display: inline-flex;
   overflow-x: scroll;
@@ -997,6 +1005,14 @@ html {
   top: calc(var(--value) * -1em);
   text-align: center;
   transition: all 1s cubic-bezier(1, 0, 0, 1);
+}
+.diff {
+  position: relative;
+  display: grid;
+  width: 100%;
+  overflow: hidden;
+  container-type: inline-size;
+  grid-template-columns: auto 1fr;
 }
 .divider {
   display: flex;
@@ -2293,6 +2309,9 @@ input.tab:checked + .tab-content,
 .card.image-full :where(figure) {
   overflow: hidden;
   border-radius: inherit;
+}
+.\!carousel::-webkit-scrollbar {
+  display: none !important;
 }
 .carousel::-webkit-scrollbar {
   display: none;
@@ -5808,10 +5827,6 @@ header.scrolled .bag-badge {
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
-.py-28 {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-}
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -7307,11 +7322,6 @@ h1 {
   background-color: rgb(0 0 0 / .03);
 }
 
-.hover\:bg-gray-800:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -7771,6 +7781,10 @@ h1 {
     display: none;
   }
 
+  .max-md\:aspect-\[360\/720\] {
+    aspect-ratio: 360/720;
+  }
+
   .max-md\:h-\[360px\] {
     height: 360px;
   }
@@ -8030,8 +8044,8 @@ h1 {
     padding-left: 1.5rem;
   }
 
-  .max-md\:pl-\[56px\] {
-    padding-left: 56px;
+  .max-md\:pl-\[40px\] {
+    padding-left: 40px;
   }
 
   .max-md\:pr-4 {
@@ -8733,6 +8747,10 @@ h1 {
     width: 100%;
   }
 
+  .md\:max-w-\[270px\] {
+    max-width: 270px;
+  }
+
   .md\:max-w-\[360px\] {
     max-width: 360px;
   }
@@ -8890,10 +8908,6 @@ h1 {
 
   .md\:gap-\[1\.95\%\] {
     gap: 1.95%;
-  }
-
-  .md\:gap-\[100px\] {
-    gap: 100px;
   }
 
   .md\:gap-\[1rem\] {

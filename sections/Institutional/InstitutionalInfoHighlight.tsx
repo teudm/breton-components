@@ -109,7 +109,7 @@ function animateValue(
     { threshold: 0.1 }
   );
 
-  observer.observe(institutionalInfoHighlight);
+  observer.observe(counterElement);
 }
 
 

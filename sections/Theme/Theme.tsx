@@ -161,42 +161,42 @@ const contrasted = (color: string, percentage = 0.8) => {
 const toVariables = (
   t: Theme & Required<ThemeColors>,
 ): [string, string][] => {
-  const toValue = (color: string | ReturnType<typeof darken>) => {
-    const [l, c, h] = new Color(color).oklch;
+  const toHex = (color: string | Color) => {
+    return new Color(color).to("srgb").toString({ format: "hex" });
+  };
 
+  const toOKLCH = (color: string) => {
+    const [l, c, h] = new Color(color).oklch;
     return `${(l * 100).toFixed(0)}% ${c.toFixed(2)} ${(h || 0).toFixed(0)}deg`;
   };
 
-  const colorVariables = Object.entries({
-    "--p": t["primary"],
-    "--pc": t["primary-content"] ?? contrasted(t["primary"]),
+  const colorKeys = {
+    "p": t["primary"],
+    "pc": t["primary-content"] ?? contrasted(t["primary"]),
+    "s": t["secondary"],
+    "sc": t["secondary-content"] ?? contrasted(t["secondary"]),
+    "a": t["tertiary"],
+    "ac": t["tertiary-content"] ?? contrasted(t["tertiary"]),
+    "n": t["neutral"],
+    "nc": t["neutral-content"] ?? contrasted(t["neutral"]),
+    "b1": t["base-100"],
+    "b2": t["base-200"] ?? darken(t["base-100"], 0.07),
+    "b3": t["base-300"] ?? darken(t["base-100"], 0.14),
+    "bc": t["base-content"] ?? contrasted(t["base-100"]),
+    "su": t["success"],
+    "suc": t["success-content"] ?? contrasted(t["success"]),
+    "wa": t["warning"],
+    "wac": t["warning-content"] ?? contrasted(t["warning"]),
+    "er": t["error"],
+    "erc": t["error-content"] ?? contrasted(t["error"]),
+    "in": t["info"],
+    "inc": t["info-content"] ?? contrasted(t["info"]),
+  };
 
-    "--s": t["secondary"],
-    "--sc": t["secondary-content"] ?? contrasted(t["secondary"]),
-
-    "--a": t["tertiary"],
-    "--ac": t["tertiary-content"] ?? contrasted(t["tertiary"]),
-
-    "--n": t["neutral"],
-    "--nc": t["neutral-content"] ?? contrasted(t["neutral"]),
-
-    "--b1": t["base-100"],
-    "--b2": t["base-200"] ?? darken(t["base-100"], 0.07),
-    "--b3": t["base-300"] ?? darken(t["base-100"], 0.14),
-    "--bc": t["base-content"] ?? contrasted(t["base-100"]),
-
-    "--su": t["success"],
-    "--suc": t["success-content"] ?? contrasted(t["success"]),
-
-    "--wa": t["warning"],
-    "--wac": t["warning-content"] ?? contrasted(t["warning"]),
-
-    "--er": t["error"],
-    "--erc": t["error-content"] ?? contrasted(t["error"]),
-
-    "--in": t["info"],
-    "--inc": t["info-content"] ?? contrasted(t["info"]),
-  }).map(([key, color]) => [key, toValue(color)] as [string, string]);
+  const colorVariables = Object.entries(colorKeys).flatMap(([key, value]) => [
+    [`--${key}`, `${toOKLCH(value as string)}`] as [string, string],
+    [`--fallback-${key}`, toHex(value as string)] as [string, string],
+  ]);
 
   const miscellaneousVariables = Object.entries({
     "--rounded-box": t["--rounded-box"],

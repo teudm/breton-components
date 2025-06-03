@@ -83,7 +83,7 @@ function TechnicalInfos({
               <span class="text-button text-ui-400 uppercase">
                 Dimensões principais
               </span>
-              <Image
+              <img
                 src={dimensoesMain}
                 width={664}
                 class="w-full h-auto mix-blend-multiply"
@@ -102,7 +102,7 @@ function TechnicalInfos({
               <span class="text-button text-ui-400 uppercase">
                 Dimensões completas
               </span>
-              <Image
+              <img
                 src={dimensoesFull}
                 width={664}
                 class="w-full h-auto mix-blend-multiply"

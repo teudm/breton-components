@@ -23,8 +23,8 @@ interface Props {
   variant?: "plp" | "pdp";
 }
 
-const WIDTH = 287;
-const HEIGHT = 287;
+const WIDTH = 287*2;
+const HEIGHT = 287*2;
 const ASPECT_RATIO = `${WIDTH} / ${HEIGHT}`;
 
 function ProductCard({
@@ -74,7 +74,7 @@ function ProductCard({
       >
         {/* Product Images */}
         <a
-          href={relativeUrl}
+          href={relativeUrl?.split("?")[0]}
           aria-label="view product"
           class={clx(
             "absolute top-0 left-0",

@@ -4,6 +4,7 @@ import { Picture, Source } from "apps/website/components/Picture.tsx";
 import Icon from "../../components/ui/Icon.tsx";
 import { type SectionProps } from "@deco/deco";
 
+/** @titleBy architects */
 interface DesignerBlock {
   img: {
     /** @title Desktop Image */
@@ -39,7 +40,7 @@ export default function ProductDesigners(
 
   return (
     <>
-      {designerInfos.map(block => (
+      {designerInfos?.map(block => (
         <div class="grid md:grid-cols-2">
           <div class="relative">
             <Picture>

@@ -69,9 +69,9 @@ export default function Video({
   return (
     <>
       <section
-        class={`w-full relative group ${initialBlock ? "max-md:-mt-[80px] md:-mt-[100px]" : ""}`}
+        class={`w-full relative group`}
         style={{ aspectRatio: `${aspectRatio}` }}
-        id={initialBlock ? "main-banner" : null}
+        id={initialBlock ? "main-banner" : ""}
       >
         <video
           id={`custom-video-${id}`}

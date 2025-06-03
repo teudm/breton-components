@@ -20,7 +20,7 @@ export default function BretonVersatilityContent({
   const productSlideIndex = 2 + places[0].normalSlide.length;
 
   return (
-    <div class="flex-col flex md:gap-[100px]" id={id}>
+    <div class="flex-col flex" id={id}>
       {places.map((place, index) => (
         <div
           class={`place-type-${place.type.toLowerCase()} carousel-places col-span-full row-span-full flex relative items-center justify-center`}
@@ -28,7 +28,7 @@ export default function BretonVersatilityContent({
         >
           <Slider
             id="carouselCounter"
-            class="carousel w-full max-md:gap-1 scroll-smooth duration-[8s] transition-transform ease-in-out md:max-h-[53.53vw] md:overflow-y-hidden"
+            class="carousel w-full max-md:gap-1 scroll-smooth duration-[8s] transition-transform ease-in-out md:max-h-[53.53vw] md:overflow-y-hidden md:gap-4"
           >
             <BretonVersatilityCover
               {...place.cover}
@@ -53,22 +53,21 @@ export default function BretonVersatilityContent({
           <div class="absolute top-0 w-full h-full z-10 left-0 pointer-events-none flex justify-center">
             <Slider.PrevButton
               class={clx(
-                "btn btn-circle btn-sm w-[48px] h-[48px]",
+                "flex items-center justify-center btn-circle btn-sm w-[48px] h-[48px]",
                 "disabled:hidden pointer-events-auto flex",
                 "text-[#EEEEEE] bg-white text-black",
                 "max-md:top-[calc(100%-80px)] md:top-1/2",
                 "max-md:left-[calc(50%-56px)] md:left-[24px]",
                 "md:-translate-y-1/2 peer absolute peer/next"
               )}
-              disabled={false}
             >
               <Icon id="chevron-left" size={32} />
             </Slider.PrevButton>
 
             <Slider.NextButton
-              id={`nextButton-${id}`}
+              id={`nextButton-${id}-${index}`}
               class={clx(
-                "btn btn-circle btn-sm text-black justify-center pointer-events-auto ",
+                "flex items-center justify-center btn-circle btn-sm text-black pointer-events-auto ",
                 "size-12",
                 "bg-white ",
                 "absolute right-0 max-md:top-[calc(100%-80px)] md:top-1/2",
@@ -83,11 +82,11 @@ export default function BretonVersatilityContent({
             </Slider.NextButton>
 
             <button
-              hx-on:click={useScript((id) => {
+              hx-on:click={useScript((id, index) => {
                 const nextButton: HTMLButtonElement | null =
-                  document.querySelector(`#nextButton-${id}`);
-                if (nextButton) nextButton.click();
-              }, id)}
+                  document.querySelector(`#nextButton-${id}-${index}`);
+                if (nextButton) nextButton.click()
+              }, id, index)}
               class={clx(
                 "btn btn-circle btn-sm text-black justify-center pointer-events-auto peer-disabled:border-none",
                 "peer-disabled:size-auto",

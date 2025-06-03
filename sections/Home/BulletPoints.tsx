@@ -130,6 +130,7 @@ export default function BulletPoints({
                     bullets.map(({ yLocation, xLocation, products }, index) => {
                       if (!products) return null;
                       const [product] = products;
+                      if(!product) return <></>;
                       const {
                         image: pImages,
                         isVariantOf,

@@ -8,6 +8,7 @@ import Icon from "../../components/ui/Icon.tsx";
 import AddToCartButton from "../../components/product/AddToCartButton.tsx";
 import WishlistButton from "../../components/wishlist/WishlistButton.tsx";
 import { useDevice } from "@deco/deco/hooks";
+import NotFound from "../../components/search/NotFound.tsx";
 
 export interface Props {
   /** @title Integration */
@@ -55,14 +56,7 @@ export default function ProductMainBanner({ page, defaultImageBanner }: Props) {
    */
   if (!page) {
     return (
-      <div class="w-full flex justify-center items-center py-28">
-        <div class="flex flex-col items-center justify-center gap-6">
-          <span class="font-medium text-2xl">Page not found</span>
-          <a href="/" class="btn no-animation">
-            Go back to Home
-          </a>
-        </div>
-      </div>
+      <NotFound/>
     );
   }
 
@@ -151,28 +145,26 @@ export default function ProductMainBanner({ page, defaultImageBanner }: Props) {
       </div>
       {/* Banner */}
       <div id="main-banner" class="relative mb-4">
-        <Picture preload={true}>
-          <Source
+        <picture preload="true">
+          <source
             media="(max-width: 767px)"
-            fetchPriority="high"
-            src={bannerMobile}
+            srcset={bannerMobile}
             width={360}
             height={720}
           />
-          <Source
+          <source
             media="(min-width: 768px)"
-            fetchPriority="high"
-            src={bannerValue}
+            srcset={bannerValue}
             width={1360}
             height={700}
           />
           <img
-            class="w-full object-cover md:group-hover:scale-110 duration-3000 ease-in-out"
+            class="w-full object-cover md:group-hover:scale-110 duration-3000 ease-in-out max-md:aspect-[360/720]"
             loading="eager"
             src={bannerValue}
             alt={""}
           />
-        </Picture>
+        </picture>
         <div class="absolute w-full h-full left-0 top-0 flex items-center justify-center">
           <div
             id="product-name"

@@ -100,6 +100,7 @@ export function getProducts(
       button
         .querySelector("svg")
         ?.setAttribute("fill", inWishlist ? "black" : "none");
+      button.dataset["inwishlist"] = `${inWishlist}`;
     });
   }
 
@@ -108,12 +109,12 @@ export function getProducts(
    *
    * @param {string} productID - Identificador do produto.
    */
-  function handleClick(productID: string) {
+  function handleClick(productID: string, skuId: string) {
     const button = event?.currentTarget as HTMLButtonElement;
     const user = window.STOREFRONT.USER.getUser();
     if (user?.email) {
       button.classList.add("htmx-request");
-      window.STOREFRONT.WISHLIST.toggle(productID, "");
+      window.STOREFRONT.WISHLIST.toggle(skuId, productID);
     } else {
       window.alert(`Please login to add the product to your wishlist`);
     }
@@ -126,19 +127,31 @@ export function getProducts(
    * @param {string} id - Identificador do container dos produtos.
    */
   function mountProducts(
-    products: [
-      {
-        productName: string;
-        productId: string;
-        items: [{ images: [{ imageUrl: string; imageLabel: string }] }];
-        Designer?: string[];
-      }
-    ],
+    products: Array<{
+      productName: string;
+      productId: string;
+      items: Array<{
+        itemId: any;
+        images: Array<{ imageUrl: string; imageLabel: string }>;
+      }>;
+      linkText: string;
+      Designer?: string[];
+    }>,
     id: string
   ) {
     eraseMocks(products.length);
     const productCard = document.getElementById(`productCard-${id}`);
     if (!productCard) return;
+
+    const widthSize = window.innerWidth;
+    const isMobile = widthSize <= 768;
+
+    const gap = 56;
+    const minWidthEachCard = 176;
+    const minWidthMob = products.length * (minWidthEachCard + gap);
+    const minWidthStyle = isMobile ? `${minWidthMob}px` : "auto";
+
+    productCard.style.minWidth = minWidthStyle;
 
     const productCardChildrens = Array.from(productCard.children);
     if (!productCardChildrens.length) return;
@@ -146,14 +159,28 @@ export function getProducts(
     productCardChildrens.forEach((child, index) => {
       const productTitle = child.querySelector(".product-title");
       const productAuthor = child.querySelector(".product-author");
+      const productDivImage = child.querySelector(".product-div-img");
       const productImage = child.querySelector(".product-img");
-      if (!productTitle || !productAuthor || !productImage) return;
+      const productLink = child.querySelector(`#linkToProduct-${id}`);
+      if (
+        !productTitle ||
+        !productAuthor ||
+        !productImage ||
+        !productDivImage ||
+        !productLink
+      )
+        return;
 
-      const { productName, items, Designer, productId } = products[index];
+      const { productName, items, Designer, productId, linkText } =
+        products[index];
+
+      const skuId = items[0].itemId;
 
       productTitle.textContent = productName;
-      productImage.setAttribute("src", items?.[0].images?.[0].imageUrl);
-      productImage.setAttribute("alt", items?.[0].images?.[0].imageLabel);
+      const itemImages = items?.[0].images;
+      productImage.setAttribute("src", itemImages?.[0].imageUrl);
+      productImage.setAttribute("alt", itemImages?.[0].imageLabel);
+      productLink.setAttribute("href", linkText ? `/${linkText}/p` : "/");
 
       if (Designer) {
         productAuthor.textContent = "By " + Designer.join(", ");
@@ -163,11 +190,22 @@ export function getProducts(
         child.querySelector(".wishListButton");
       if (wishListBtn) {
         wishListBtn.setAttribute("data-product-id", productId);
-        wishListBtn.addEventListener("click", () => handleClick(productId));
-        wishListBtn.addEventListener("load", () =>
-          onLoad(wishListBtn, productId)
-        );
+        wishListBtn.addEventListener("click", () => {
+          handleClick(productId, skuId);
+        });
+        onLoad(wishListBtn, skuId)
       }
+
+      child.addEventListener("mouseenter", () => {
+        if (itemImages?.[1]) {
+          productImage.setAttribute("src", itemImages?.[1].imageUrl);
+        }
+      });
+      child.addEventListener("mouseleave", () => {
+        if (itemImages?.[1]) {
+          productImage.setAttribute("src", itemImages?.[0].imageUrl);
+        }
+      });
     });
   }
 

@@ -18,7 +18,7 @@ export default function VersatilityWishlistButton({ id }: { id: string }) {
           "min-h-9 h-fit"
         )}
       >
-        <Icon id="favorite" class="[.htmx-request_&]:hidden" fill="none" />
+        <Icon id="icon-heart" class="[.htmx-request_&]:hidden" fill="none" />
         <span class="[.htmx-request_&]:inline hidden loading loading-spinner" />
       </button>
     </div>
