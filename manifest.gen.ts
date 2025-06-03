@@ -4,8 +4,8 @@
 
 import * as $$$$$$$$$0 from "./actions/minicart/submit.ts";
 import * as $$$$$$$$$1 from "./actions/myAction.ts";
-import * as $$$$$$$$$2 from "./actions/wishlist/submit.ts";
-import * as $$$$$$$$$$$0 from "./apps/site.ts";
+import * as $$$$$$$$$2 from "./actions/newsletter/subscribe.ts";
+import * as $$$$$$$$$3 from "./actions/wishlist/submit.ts";
 import * as $$$0 from "./loaders/availableIcons.ts";
 import * as $$$1 from "./loaders/icons.ts";
 import * as $$$2 from "./loaders/minicart.ts";
@@ -26,62 +26,64 @@ import * as $$$$$$11 from "./sections/Content/Faq.tsx";
 import * as $$$$$$12 from "./sections/Content/Hero.tsx";
 import * as $$$$$$13 from "./sections/Content/Intro.tsx";
 import * as $$$$$$14 from "./sections/Content/Logos.tsx";
-import * as $$$$$$15 from "./sections/Footer/Footer.tsx";
-import * as $$$$$$16 from "./sections/Footer/FooterLanguageSelector.tsx";
-import * as $$$$$$17 from "./sections/Footer/FooterNewsletter.tsx";
-import * as $$$$$$18 from "./sections/Header/Header.tsx";
-import * as $$$$$$19 from "./sections/Home/BannerDesigner/BannerDesigner.tsx";
-import * as $$$$$$20 from "./sections/Home/BulletPoints.tsx";
-import * as $$$$$$21 from "./sections/Home/Ecobreton/Ecobreton.tsx";
-import * as $$$$$$22 from "./sections/Iframe/ProxyIframe.tsx";
-import * as $$$$$$23 from "./sections/Images/Banner.tsx";
-import * as $$$$$$24 from "./sections/Images/Carousel.tsx";
-import * as $$$$$$25 from "./sections/Images/ImageGallery.tsx";
-import * as $$$$$$26 from "./sections/Images/ShoppableBanner.tsx";
-import * as $$$$$$27 from "./sections/Institutional/InstitutionalCarousel.tsx";
-import * as $$$$$$28 from "./sections/Institutional/InstitutionalEnvironment.tsx";
-import * as $$$$$$29 from "./sections/Institutional/InstitutionalFooterNavigator.tsx";
-import * as $$$$$$30 from "./sections/Institutional/InstitutionalForm.tsx";
-import * as $$$$$$31 from "./sections/Institutional/InstitutionalInfoHighlight.tsx";
-import * as $$$$$$32 from "./sections/Institutional/InstitutionalOrdenatedList.tsx";
-import * as $$$$$$33 from "./sections/Institutional/InstitutionalOurActions.tsx";
-import * as $$$$$$34 from "./sections/Institutional/InstitutionalPDF.tsx";
-import * as $$$$$$35 from "./sections/Institutional/InstitutionalResponsabilities.tsx";
-import * as $$$$$$36 from "./sections/Institutional/InstitutionalStores.tsx";
-import * as $$$$$$37 from "./sections/Institutional/InstitutionalSustainability.tsx";
-import * as $$$$$$38 from "./sections/Institutional/InstitutionalSustainableMaterials.tsx";
-import * as $$$$$$39 from "./sections/Institutional/InstitutionalText.tsx";
-import * as $$$$$$40 from "./sections/Institutional/InstitutionalTranslucid.tsx";
-import * as $$$$$$41 from "./sections/Links/LinkTree.tsx";
-import * as $$$$$$42 from "./sections/Miscellaneous/CampaignTimer.tsx";
-import * as $$$$$$43 from "./sections/Miscellaneous/CookieConsent.tsx";
-import * as $$$$$$44 from "./sections/ModalCookies/ModalCookies.tsx";
-import * as $$$$$$70 from "./sections/mySection.tsx";
-import * as $$$$$$45 from "./sections/Newsletter/Newsletter.tsx";
-import * as $$$$$$46 from "./sections/Policies/Policies.tsx";
-import * as $$$$$$47 from "./sections/Product/ProductDesigners.tsx";
-import * as $$$$$$48 from "./sections/Product/ProductDetails.tsx";
-import * as $$$$$$49 from "./sections/Product/ProductInfos.tsx";
-import * as $$$$$$50 from "./sections/Product/ProductMainBanner.tsx";
-import * as $$$$$$51 from "./sections/Product/ProductShelf.tsx";
-import * as $$$$$$52 from "./sections/Product/ProductSlide.tsx";
-import * as $$$$$$53 from "./sections/Product/ProductSwiper.tsx";
-import * as $$$$$$54 from "./sections/Product/ProductVideo.tsx";
-import * as $$$$$$55 from "./sections/Product/RelatedProducts.tsx";
-import * as $$$$$$56 from "./sections/Product/SearchResult.tsx";
-import * as $$$$$$57 from "./sections/Product/ShelfWithImage.tsx";
-import * as $$$$$$58 from "./sections/Product/Wishlist.tsx";
-import * as $$$$$$59 from "./sections/Search/BannerCategory/BannerCategory.tsx";
-import * as $$$$$$60 from "./sections/Search/RichText/SearchRichText.tsx";
-import * as $$$$$$61 from "./sections/Search/SearchTerm/SearchTerm.tsx";
-import * as $$$$$$62 from "./sections/Session.tsx";
-import * as $$$$$$63 from "./sections/Social/InstagramPosts.tsx";
-import * as $$$$$$64 from "./sections/Social/WhatsApp.tsx";
-import * as $$$$$$65 from "./sections/Spacer/Spacer.tsx";
-import * as $$$$$$66 from "./sections/Theme/Theme.tsx";
-import * as $$$$$$67 from "./sections/TimeLineCarousel/TimeLineCarousel.tsx";
-import * as $$$$$$68 from "./sections/Video/Video.tsx";
-import * as $$$$$$69 from "./sections/Video/VideoOrImage.tsx";
+import * as $$$$$$15 from "./sections/Designer/DesignerProductList.tsx";
+import * as $$$$$$16 from "./sections/Designer/DesignersList.tsx";
+import * as $$$$$$17 from "./sections/Footer/Footer.tsx";
+import * as $$$$$$18 from "./sections/Footer/FooterLanguageSelector.tsx";
+import * as $$$$$$19 from "./sections/Footer/FooterNewsletter.tsx";
+import * as $$$$$$20 from "./sections/Header/Header.tsx";
+import * as $$$$$$21 from "./sections/Home/BannerDesigner/BannerDesigner.tsx";
+import * as $$$$$$22 from "./sections/Home/BulletPoints.tsx";
+import * as $$$$$$23 from "./sections/Home/Ecobreton/Ecobreton.tsx";
+import * as $$$$$$24 from "./sections/Iframe/ProxyIframe.tsx";
+import * as $$$$$$25 from "./sections/Images/Banner.tsx";
+import * as $$$$$$26 from "./sections/Images/Carousel.tsx";
+import * as $$$$$$27 from "./sections/Images/ImageGallery.tsx";
+import * as $$$$$$28 from "./sections/Images/ShoppableBanner.tsx";
+import * as $$$$$$29 from "./sections/Institutional/InstitutionalCarousel.tsx";
+import * as $$$$$$30 from "./sections/Institutional/InstitutionalEnvironment.tsx";
+import * as $$$$$$31 from "./sections/Institutional/InstitutionalFooterNavigator.tsx";
+import * as $$$$$$32 from "./sections/Institutional/InstitutionalForm.tsx";
+import * as $$$$$$33 from "./sections/Institutional/InstitutionalInfoHighlight.tsx";
+import * as $$$$$$34 from "./sections/Institutional/InstitutionalOrdenatedList.tsx";
+import * as $$$$$$35 from "./sections/Institutional/InstitutionalOurActions.tsx";
+import * as $$$$$$36 from "./sections/Institutional/InstitutionalPDF.tsx";
+import * as $$$$$$37 from "./sections/Institutional/InstitutionalResponsabilities.tsx";
+import * as $$$$$$38 from "./sections/Institutional/InstitutionalStores.tsx";
+import * as $$$$$$39 from "./sections/Institutional/InstitutionalSustainability.tsx";
+import * as $$$$$$40 from "./sections/Institutional/InstitutionalSustainableMaterials.tsx";
+import * as $$$$$$41 from "./sections/Institutional/InstitutionalText.tsx";
+import * as $$$$$$42 from "./sections/Institutional/InstitutionalTranslucid.tsx";
+import * as $$$$$$43 from "./sections/Links/LinkTree.tsx";
+import * as $$$$$$44 from "./sections/Miscellaneous/CampaignTimer.tsx";
+import * as $$$$$$45 from "./sections/Miscellaneous/CookieConsent.tsx";
+import * as $$$$$$46 from "./sections/ModalCookies/ModalCookies.tsx";
+import * as $$$$$$72 from "./sections/mySection.tsx";
+import * as $$$$$$47 from "./sections/Newsletter/Newsletter.tsx";
+import * as $$$$$$48 from "./sections/Policies/Policies.tsx";
+import * as $$$$$$49 from "./sections/Product/ProductDesigners.tsx";
+import * as $$$$$$50 from "./sections/Product/ProductDetails.tsx";
+import * as $$$$$$51 from "./sections/Product/ProductInfos.tsx";
+import * as $$$$$$52 from "./sections/Product/ProductMainBanner.tsx";
+import * as $$$$$$53 from "./sections/Product/ProductShelf.tsx";
+import * as $$$$$$54 from "./sections/Product/ProductSlide.tsx";
+import * as $$$$$$55 from "./sections/Product/ProductSwiper.tsx";
+import * as $$$$$$56 from "./sections/Product/ProductVideo.tsx";
+import * as $$$$$$57 from "./sections/Product/RelatedProducts.tsx";
+import * as $$$$$$58 from "./sections/Product/SearchResult.tsx";
+import * as $$$$$$59 from "./sections/Product/ShelfWithImage.tsx";
+import * as $$$$$$60 from "./sections/Product/Wishlist.tsx";
+import * as $$$$$$61 from "./sections/Search/BannerCategory/BannerCategory.tsx";
+import * as $$$$$$62 from "./sections/Search/RichText/SearchRichText.tsx";
+import * as $$$$$$63 from "./sections/Search/SearchTerm/SearchTerm.tsx";
+import * as $$$$$$64 from "./sections/Session.tsx";
+import * as $$$$$$65 from "./sections/Social/InstagramPosts.tsx";
+import * as $$$$$$66 from "./sections/Social/WhatsApp.tsx";
+import * as $$$$$$67 from "./sections/Spacer/Spacer.tsx";
+import * as $$$$$$68 from "./sections/Theme/Theme.tsx";
+import * as $$$$$$69 from "./sections/TimeLineCarousel/TimeLineCarousel.tsx";
+import * as $$$$$$70 from "./sections/Video/Video.tsx";
+import * as $$$$$$71 from "./sections/Video/VideoOrImage.tsx";
 
 const manifest = {
   "loaders": {
@@ -108,84 +110,84 @@ const manifest = {
     "breton-components/sections/Content/Hero.tsx": $$$$$$12,
     "breton-components/sections/Content/Intro.tsx": $$$$$$13,
     "breton-components/sections/Content/Logos.tsx": $$$$$$14,
-    "breton-components/sections/Footer/Footer.tsx": $$$$$$15,
-    "breton-components/sections/Footer/FooterLanguageSelector.tsx": $$$$$$16,
-    "breton-components/sections/Footer/FooterNewsletter.tsx": $$$$$$17,
-    "breton-components/sections/Header/Header.tsx": $$$$$$18,
+    "breton-components/sections/Designer/DesignerProductList.tsx": $$$$$$15,
+    "breton-components/sections/Designer/DesignersList.tsx": $$$$$$16,
+    "breton-components/sections/Footer/Footer.tsx": $$$$$$17,
+    "breton-components/sections/Footer/FooterLanguageSelector.tsx": $$$$$$18,
+    "breton-components/sections/Footer/FooterNewsletter.tsx": $$$$$$19,
+    "breton-components/sections/Header/Header.tsx": $$$$$$20,
     "breton-components/sections/Home/BannerDesigner/BannerDesigner.tsx":
-      $$$$$$19,
-    "breton-components/sections/Home/BulletPoints.tsx": $$$$$$20,
-    "breton-components/sections/Home/Ecobreton/Ecobreton.tsx": $$$$$$21,
-    "breton-components/sections/Iframe/ProxyIframe.tsx": $$$$$$22,
-    "breton-components/sections/Images/Banner.tsx": $$$$$$23,
-    "breton-components/sections/Images/Carousel.tsx": $$$$$$24,
-    "breton-components/sections/Images/ImageGallery.tsx": $$$$$$25,
-    "breton-components/sections/Images/ShoppableBanner.tsx": $$$$$$26,
+      $$$$$$21,
+    "breton-components/sections/Home/BulletPoints.tsx": $$$$$$22,
+    "breton-components/sections/Home/Ecobreton/Ecobreton.tsx": $$$$$$23,
+    "breton-components/sections/Iframe/ProxyIframe.tsx": $$$$$$24,
+    "breton-components/sections/Images/Banner.tsx": $$$$$$25,
+    "breton-components/sections/Images/Carousel.tsx": $$$$$$26,
+    "breton-components/sections/Images/ImageGallery.tsx": $$$$$$27,
+    "breton-components/sections/Images/ShoppableBanner.tsx": $$$$$$28,
     "breton-components/sections/Institutional/InstitutionalCarousel.tsx":
-      $$$$$$27,
-    "breton-components/sections/Institutional/InstitutionalEnvironment.tsx":
-      $$$$$$28,
-    "breton-components/sections/Institutional/InstitutionalFooterNavigator.tsx":
       $$$$$$29,
-    "breton-components/sections/Institutional/InstitutionalForm.tsx": $$$$$$30,
-    "breton-components/sections/Institutional/InstitutionalInfoHighlight.tsx":
+    "breton-components/sections/Institutional/InstitutionalEnvironment.tsx":
+      $$$$$$30,
+    "breton-components/sections/Institutional/InstitutionalFooterNavigator.tsx":
       $$$$$$31,
-    "breton-components/sections/Institutional/InstitutionalOrdenatedList.tsx":
-      $$$$$$32,
-    "breton-components/sections/Institutional/InstitutionalOurActions.tsx":
+    "breton-components/sections/Institutional/InstitutionalForm.tsx": $$$$$$32,
+    "breton-components/sections/Institutional/InstitutionalInfoHighlight.tsx":
       $$$$$$33,
-    "breton-components/sections/Institutional/InstitutionalPDF.tsx": $$$$$$34,
-    "breton-components/sections/Institutional/InstitutionalResponsabilities.tsx":
+    "breton-components/sections/Institutional/InstitutionalOrdenatedList.tsx":
+      $$$$$$34,
+    "breton-components/sections/Institutional/InstitutionalOurActions.tsx":
       $$$$$$35,
-    "breton-components/sections/Institutional/InstitutionalStores.tsx":
-      $$$$$$36,
-    "breton-components/sections/Institutional/InstitutionalSustainability.tsx":
+    "breton-components/sections/Institutional/InstitutionalPDF.tsx": $$$$$$36,
+    "breton-components/sections/Institutional/InstitutionalResponsabilities.tsx":
       $$$$$$37,
-    "breton-components/sections/Institutional/InstitutionalSustainableMaterials.tsx":
+    "breton-components/sections/Institutional/InstitutionalStores.tsx":
       $$$$$$38,
-    "breton-components/sections/Institutional/InstitutionalText.tsx": $$$$$$39,
-    "breton-components/sections/Institutional/InstitutionalTranslucid.tsx":
+    "breton-components/sections/Institutional/InstitutionalSustainability.tsx":
+      $$$$$$39,
+    "breton-components/sections/Institutional/InstitutionalSustainableMaterials.tsx":
       $$$$$$40,
-    "breton-components/sections/Links/LinkTree.tsx": $$$$$$41,
-    "breton-components/sections/Miscellaneous/CampaignTimer.tsx": $$$$$$42,
-    "breton-components/sections/Miscellaneous/CookieConsent.tsx": $$$$$$43,
-    "breton-components/sections/ModalCookies/ModalCookies.tsx": $$$$$$44,
-    "breton-components/sections/mySection.tsx": $$$$$$70,
-    "breton-components/sections/Newsletter/Newsletter.tsx": $$$$$$45,
-    "breton-components/sections/Policies/Policies.tsx": $$$$$$46,
-    "breton-components/sections/Product/ProductDesigners.tsx": $$$$$$47,
-    "breton-components/sections/Product/ProductDetails.tsx": $$$$$$48,
-    "breton-components/sections/Product/ProductInfos.tsx": $$$$$$49,
-    "breton-components/sections/Product/ProductMainBanner.tsx": $$$$$$50,
-    "breton-components/sections/Product/ProductShelf.tsx": $$$$$$51,
-    "breton-components/sections/Product/ProductSlide.tsx": $$$$$$52,
-    "breton-components/sections/Product/ProductSwiper.tsx": $$$$$$53,
-    "breton-components/sections/Product/ProductVideo.tsx": $$$$$$54,
-    "breton-components/sections/Product/RelatedProducts.tsx": $$$$$$55,
-    "breton-components/sections/Product/SearchResult.tsx": $$$$$$56,
-    "breton-components/sections/Product/ShelfWithImage.tsx": $$$$$$57,
-    "breton-components/sections/Product/Wishlist.tsx": $$$$$$58,
+    "breton-components/sections/Institutional/InstitutionalText.tsx": $$$$$$41,
+    "breton-components/sections/Institutional/InstitutionalTranslucid.tsx":
+      $$$$$$42,
+    "breton-components/sections/Links/LinkTree.tsx": $$$$$$43,
+    "breton-components/sections/Miscellaneous/CampaignTimer.tsx": $$$$$$44,
+    "breton-components/sections/Miscellaneous/CookieConsent.tsx": $$$$$$45,
+    "breton-components/sections/ModalCookies/ModalCookies.tsx": $$$$$$46,
+    "breton-components/sections/mySection.tsx": $$$$$$72,
+    "breton-components/sections/Newsletter/Newsletter.tsx": $$$$$$47,
+    "breton-components/sections/Policies/Policies.tsx": $$$$$$48,
+    "breton-components/sections/Product/ProductDesigners.tsx": $$$$$$49,
+    "breton-components/sections/Product/ProductDetails.tsx": $$$$$$50,
+    "breton-components/sections/Product/ProductInfos.tsx": $$$$$$51,
+    "breton-components/sections/Product/ProductMainBanner.tsx": $$$$$$52,
+    "breton-components/sections/Product/ProductShelf.tsx": $$$$$$53,
+    "breton-components/sections/Product/ProductSlide.tsx": $$$$$$54,
+    "breton-components/sections/Product/ProductSwiper.tsx": $$$$$$55,
+    "breton-components/sections/Product/ProductVideo.tsx": $$$$$$56,
+    "breton-components/sections/Product/RelatedProducts.tsx": $$$$$$57,
+    "breton-components/sections/Product/SearchResult.tsx": $$$$$$58,
+    "breton-components/sections/Product/ShelfWithImage.tsx": $$$$$$59,
+    "breton-components/sections/Product/Wishlist.tsx": $$$$$$60,
     "breton-components/sections/Search/BannerCategory/BannerCategory.tsx":
-      $$$$$$59,
-    "breton-components/sections/Search/RichText/SearchRichText.tsx": $$$$$$60,
-    "breton-components/sections/Search/SearchTerm/SearchTerm.tsx": $$$$$$61,
-    "breton-components/sections/Session.tsx": $$$$$$62,
-    "breton-components/sections/Social/InstagramPosts.tsx": $$$$$$63,
-    "breton-components/sections/Social/WhatsApp.tsx": $$$$$$64,
-    "breton-components/sections/Spacer/Spacer.tsx": $$$$$$65,
-    "breton-components/sections/Theme/Theme.tsx": $$$$$$66,
+      $$$$$$61,
+    "breton-components/sections/Search/RichText/SearchRichText.tsx": $$$$$$62,
+    "breton-components/sections/Search/SearchTerm/SearchTerm.tsx": $$$$$$63,
+    "breton-components/sections/Session.tsx": $$$$$$64,
+    "breton-components/sections/Social/InstagramPosts.tsx": $$$$$$65,
+    "breton-components/sections/Social/WhatsApp.tsx": $$$$$$66,
+    "breton-components/sections/Spacer/Spacer.tsx": $$$$$$67,
+    "breton-components/sections/Theme/Theme.tsx": $$$$$$68,
     "breton-components/sections/TimeLineCarousel/TimeLineCarousel.tsx":
-      $$$$$$67,
-    "breton-components/sections/Video/Video.tsx": $$$$$$68,
-    "breton-components/sections/Video/VideoOrImage.tsx": $$$$$$69,
+      $$$$$$69,
+    "breton-components/sections/Video/Video.tsx": $$$$$$70,
+    "breton-components/sections/Video/VideoOrImage.tsx": $$$$$$71,
   },
   "actions": {
     "breton-components/actions/minicart/submit.ts": $$$$$$$$$0,
     "breton-components/actions/myAction.ts": $$$$$$$$$1,
-    "breton-components/actions/wishlist/submit.ts": $$$$$$$$$2,
-  },
-  "apps": {
-    "breton-components/apps/site.ts": $$$$$$$$$$$0,
+    "breton-components/actions/newsletter/subscribe.ts": $$$$$$$$$2,
+    "breton-components/actions/wishlist/submit.ts": $$$$$$$$$3,
   },
   "name": "breton-components",
   "baseUrl": import.meta.url,
